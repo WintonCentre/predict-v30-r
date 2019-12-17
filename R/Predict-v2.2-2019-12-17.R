@@ -353,7 +353,7 @@ calculate.all <-
     ## ------------------------------------------------------------------------
     # rx benefits
     # version implemented on web has benefit as difference in breast specific mortality
-    benefits2.1 <<-
+    benefits2.1 <-
       100 * (pred.cum.all.rx[, 1] - pred.cum.all.rx)
 
     ## ------------------------------------------------------------------------
@@ -416,7 +416,7 @@ calculate.all <-
 
     # rx benefits
 
-    benefits2.1.2 <<-
+    benefits2.1.2 <-
       100 * (pred.cum.all.rel.rx[, 1] - pred.cum.all.rel.rx)
 
     ## ------------------------------------------------------------------------
@@ -491,8 +491,9 @@ calculate.all <-
       pred.cum.br.rx.10 + pred.cum.oth.rx.10
 
     # rx benefits
-    benefits2.1.10 <<-
+    benefits2.1.10 <-
       100 * (pred.cum.all.rx.10[, 1] - pred.cum.all.rx.10)
+    return(benefits2.1.10)
   }
 
 fn.benefits2.1 <-
@@ -557,7 +558,7 @@ fn.benefits2.1.2 <-
     return(benefits2.1.2)
   }
 
-fn.benefits2.1.10 <<-
+fn.benefits2.1.10 <-
   function(## ----input, echo=FALSE---------------------------------------------------
            age.start  = 25,
            screen     = 1,
