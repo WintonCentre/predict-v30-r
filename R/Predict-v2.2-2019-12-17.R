@@ -557,7 +557,7 @@ fn.benefits2.1.2 <-
     return(benefits2.1.2)
   }
 
-fn.benefits2.1.10 <-
+fn.benefits2.1.10 <<-
   function(## ----input, echo=FALSE---------------------------------------------------
            age.start  = 25,
            screen     = 1,
