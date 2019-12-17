@@ -4,7 +4,7 @@
 #{:bis 1, :age 25, :radio 0, :bis? 1, :tra 1, :ki67 1, :chemoGen 3, :size 2, :radio? 0, :nodes 2, :grade 1,
 # :erstat 1, :rtime 15, :her2 1, :detection 1, :horm 1}
 
-calculate.all <-
+calculate <-
   function(## ----input, echo=FALSE---------------------------------------------------
            age.start  = 66,
            screen     = 1,
@@ -493,7 +493,7 @@ calculate.all <-
     # rx benefits
     benefits2.1.10 <-
       100 * (pred.cum.all.rx.10[, 1] - pred.cum.all.rx.10)
-    return(benefits2.1.10)
+    return(benefits2.1)
   }
 
 fn.benefits2.1 <-
