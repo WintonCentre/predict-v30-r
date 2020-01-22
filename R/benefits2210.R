@@ -1,3 +1,23 @@
+#' v2.2 predict survival benefits years 1 to 15
+#' 
+#' h10 over h5 benefits with delay 5 or 10
+#' @param age.start Age at time of surgery
+#' @param screening Clinically detected = 0, screening detected = 1
+#' @param size Tumour size mm
+#' @param tumour Tumour grade
+#' @param nodes Number positive nodes
+#' @param er ER+ = 1, ER- = 0
+#' @param her2 HER2+ = 1, HER2- = 0, missing = 9
+#' @param ki67 KI67+ = 1, KI67- = 0, missing = 9
+#' @param generation Chemo generation 0, 2 or 3 only
+#' @param horm Hormone therapy Yes = 1, no = 0
+#' @param traz Trastuzumab therapy Yes = 1, no = 0
+#' @param bis Bisphosphonate therapy Yes = 1, no = 0
+#' @param radio Radiotherapy Yes = 1, no = 0
+#' @param delay 0 or 5 years since surgery for h10 benefit
+#' @export
+#' @examples
+#' benefits2210()
 benefits2210 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1

@@ -1,9 +1,26 @@
-## ----setup, include=FALSE------------------------------------------------
-#knitr::opts_chunk$set(echo = TRUE)
-
+#' v2.2 predict survival benefits years 1 to 15
+#' 
+#' calculation for delay zero, years 1 to 15
+#' @param age.start Age at time of surgery
+#' @param screening Clinically detected = 0, screening detected = 1
+#' @param size Tumour size mm
+#' @param tumour Tumour grade
+#' @param nodes Number positive nodes
+#' @param er ER+ = 1, ER- = 0
+#' @param her2 HER2+ = 1, HER2- = 0, missing = 9
+#' @param ki67 KI67+ = 1, KI67- = 0, missing = 9
+#' @param generation Chemo generation 0, 2 or 3 only
+#' @param horm Hormone therapy Yes = 1, no = 0
+#' @param traz Trastuzumab therapy Yes = 1, no = 0
+#' @param bis Bisphosphonate therapy Yes = 1, no = 0
+#' @param radio Radiotherapy Yes = 1, no = 0
+#' @param delay 0 or 5 years since surgery for h10 benefit
+#' @export
+#' @examples
+#' benefits22()
 benefits22 <- function(
   age.start  = 57,
-  screen     = 1,     # Clinically detected = 0, screen detected = 1
+  screening     = 1,     # Clinically detected = 0, screening detected = 1
   size       = 20,    # Tumour size mm
   grade      = 2,     # Tumour grade
   nodes      = 10,     # Number positive nodes
@@ -15,7 +32,7 @@ benefits22 <- function(
   traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
   bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
-  delay      = 0
+  delay      = 0      # 0 or 5 years since surgery for h10 benefit
 ) {
  
 
@@ -23,7 +40,7 @@ benefits22 <- function(
   
   ##----------------------------------------------------------------
   ##[WINTON FIX] Fix inputs
-  screen    <- ifelse(screen == 2, 0.204, screen)
+  screen    <- ifelse(screening == 2, 0.204, screening)
   grade     <- ifelse(grade == 9, 2.13, grade)
   
   ## ------------------------------------------------------------------------
