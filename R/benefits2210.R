@@ -1,10 +1,10 @@
 #' v2.2 predict survival benefits years 1 to 15
 #' 
-#' h10 over h5 benefits with delay 5 or 10
+#' h10 over h5 benefits with delay 0 or 5.
 #' @param age.start Age at time of surgery
 #' @param screening Clinically detected = 0, screening detected = 1
 #' @param size Tumour size mm
-#' @param tumour Tumour grade
+#' @param grade Tumour grade
 #' @param nodes Number positive nodes
 #' @param er ER+ = 1, ER- = 0
 #' @param her2 HER2+ = 1, HER2- = 0, missing = 9

@@ -4,7 +4,7 @@
 #' @param age.start Age at time of surgery
 #' @param screening Clinically detected = 0, screening detected = 1
 #' @param size Tumour size mm
-#' @param tumour Tumour grade
+#' @param grade Tumour grade
 #' @param nodes Number positive nodes
 #' @param er ER+ = 1, ER- = 0
 #' @param her2 HER2+ = 1, HER2- = 0, missing = 9
@@ -14,7 +14,6 @@
 #' @param traz Trastuzumab therapy Yes = 1, no = 0
 #' @param bis Bisphosphonate therapy Yes = 1, no = 0
 #' @param radio Radiotherapy Yes = 1, no = 0
-#' @param delay 0 or 5 years since surgery for h10 benefit
 #' @export
 #' @examples
 #' benefits222()
@@ -31,8 +30,7 @@ benefits222 <- function(
   horm       = 1,     # Hormone therapy Yes = 1, no = 0
   traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
   bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
-  radio      = 0,     # Radiotherapy Yes = 1, no = 0
-  delay      = 0
+  radio      = 0     # Radiotherapy Yes = 1, no = 0
 ) {
   
   r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0

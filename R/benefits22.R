@@ -4,7 +4,7 @@
 #' @param age.start Age at time of surgery
 #' @param screening Clinically detected = 0, screening detected = 1
 #' @param size Tumour size mm
-#' @param tumour Tumour grade
+#' @param grade Tumour grade
 #' @param nodes Number positive nodes
 #' @param er ER+ = 1, ER- = 0
 #' @param her2 HER2+ = 1, HER2- = 0, missing = 9
@@ -32,7 +32,7 @@ benefits22 <- function(
   traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
   bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
-  delay      = 0      # 0 or 5 years since surgery for h10 benefit
+#  delay      = 0      # 0 or 5 years since surgery for h10 benefit
 ) {
  
 
