@@ -1,5 +1,5 @@
 #' v2.2 predict disease free survival
-#' 
+#'
 #' calculation for delay zero, years 1 to 15
 #' @param age.start Age at time of surgery
 #' @param screening Clinically detected = 0, screening detected = 1
@@ -19,33 +19,33 @@
 #' benefits222()
 benefits222 <- function(
   age.start  = 57,
-  screening     = 1,     # Clinically detected = 0, screening detected = 1
+  screening     = 0,     # Clinically detected = 0, screening detected = 1
   size       = 20,    # Tumour size mm
   grade      = 2,     # Tumour grade
   nodes      = 10,     # Number positive nodes
-  er         = 1,     # ER+ = 1, ER- = 0
-  her2       = 1,     # HER2+ = 1, HER2- = 0, missing = 9
-  ki67       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
-  generation = 1,     # Chemo generation 0, 2 or 3 only
-  horm       = 1,     # Hormone therapy Yes = 1, no = 0
-  traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
-  bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
+  er         = 0,     # ER+ = 1, ER- = 0
+  her2       = 0,     # HER2+ = 1, HER2- = 0, missing = 9
+  ki67       = 0,     # KI67+ = 1, KI67- = 0, missing = 9
+  generation = 0,     # Chemo generation 0, 2 or 3 only
+  horm       = 0,     # Hormone therapy Yes = 1, no = 0
+  traz       = 0,     # Trastuzumab therapy Yes = 1, no = 0
+  bis        = 0,     # Bisphosphonate therapy Yes = 1, no = 0
   radio      = 0     # Radiotherapy Yes = 1, no = 0
 ) {
-  
+
   r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0
-  
+
   ##----------------------------------------------------------------
   ##[WINTON FIX] Fix inputs
   screen    <- ifelse(screening == 2, 0.204, screening)
   grade     <- ifelse(grade == 9, 2.13, grade)
-  
+
   ## ------------------------------------------------------------------------
   time      <- c(1:15)
   age       <- age.start - 1 + time
   ##[WINTON FIX] - Input changed to include grade = 9
   grade.val <- ifelse(er==1, grade, ifelse(grade==2 || grade == 3, 1, 0)) # Grade variable for ER neg
-  
+
   ## ------------------------------------------------------------------------
   age.mfp.1   <- ifelse(er==1, (age.start/10)^-2-.0287449295, age.start-56.3254902)
   age.beta.1  <- ifelse(er==1, 34.53642, 0.0089827)
@@ -61,12 +61,12 @@ benefits222 <- function(
                         ifelse(her2==0, -0.0762,0 ))
   ki67.beta   <- ifelse(ki67==1 & er==1, 0.14904,
                         ifelse(ki67==0 & er==1, -0.11333,0 )) #[WINTON FIX] - Missing 3 at the end
-  
+
   ## ----baseline_adjust-----------------------------------------------------
   r.prop   <- 0.69 # Proportion of population receiving radiotherapy
   r.breast <- 0.82 # Relative hazard breast specifi mortality from Darby et al
   r.other  <- 1.07 # Relative hazard other mortality from Darby et al
-  
+
   if (r.enabled == 1) {
     r.base.br  <- log(1/((1-r.prop) + r.prop*r.breast))
     r.base.oth <- log(1/((1-r.prop) + r.prop*r.other))
@@ -74,16 +74,16 @@ benefits222 <- function(
     r.base.br   <- 0
     r.base.oth  <- 0
   }
-  
+
   ## ------------------------------------------------------------------------
   # Other mortality prognostic index (mi)
   mi <- 0.0698252*((age.start/10)^2-34.23391957) + r.base.oth
-  
+
   # Breast cancer mortality prognostic index (pi)
   pi <- age.beta.1*age.mfp.1 + age.beta.2*age.mfp.2 + size.beta*size.mfp +
     nodes.beta*nodes.mfp + grade.beta*grade.val + screen.beta*screen +
     her2.beta + ki67.beta + r.base.br
-  
+
   c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
   h     <- ifelse(horm==1 & er==1, -0.3857, 0)
   t     <- ifelse(her2==1 & traz==1, -.3567, 0)
@@ -96,9 +96,9 @@ benefits222 <- function(
     r.br = 0
     r.oth = 0
   }
-  
+
   # Add in Winton extensions to allow other possible combinations of treatment
-  
+
   hc <- h + c
   ht <- h + t
   hb <- h + b
@@ -110,7 +110,7 @@ benefits222 <- function(
   htb <- h + t + b
   ctb <- c + t + b
   hctb <- h + c + t + b
-  
+
   if(r.enabled == 1) {
     hr <- h + r.br
     rc <- r.br + c
@@ -128,19 +128,19 @@ benefits222 <- function(
     rctb <- r.br + c + t + b
     hrctb <- h + r.br + c + t + b
   }
-  
+
   ## ------------------------------------------------------------------------
   # Generate cumulative baseline other mortality
   base.m.cum.oth <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
-  
+
   # Generate cumulative survival non-breast mortality
   # s.cum.oth <- exp(-exp(mi)*base.m.cum.oth)   # never used
-  
+
   # Generate annual baseline non-breast mortality
   base.m.oth <- base.m.cum.oth
   for (i in 2:15) {
     base.m.oth[i] <- base.m.cum.oth[i] - base.m.cum.oth[i-1] }
-  
+
   # Loop for different treatment options
   rx.oth <- c(surg = 0,
               h = 0,
@@ -176,9 +176,9 @@ benefits222 <- function(
                 rctb = r.oth,
                 hrctb = r.oth)
   }
-  
+
   cols <- length(rx.oth) # Number of RX categories
-  
+
   # Generate the annual non-breast mortality rate
   # Matrix (15x9) with column for each treatment
   m.oth.rx <- sapply(rx.oth, function(rx.oth, x.vector = base.m.oth) {
@@ -186,35 +186,35 @@ benefits222 <- function(
     return(output)
   }
   )
-  
+
   # Calculate the cumulative other mortality rate
   m.cum.oth.rx <- apply(m.oth.rx, 2, cumsum)
-  
+
   # Calculate the cumulative other survival
   s.cum.oth.rx <- exp(-m.cum.oth.rx)
-  
+
   # Convert cumulative mortality rate into cumulative risk
   m.cum.oth.rx <- 1- s.cum.oth.rx
-  
+
   m.oth.rx <- m.cum.oth.rx
   for (j in 1:cols) {
     for (i in 2:15) {
       m.oth.rx[i,j] <- m.cum.oth.rx[i,j] - m.cum.oth.rx[i-1,j]
     }
   }
-  
+
   ## ------------------------------------------------------------------------
   # Generate cumulative baseline breast mortality
   if (er == 1) {
     base.m.cum.br <- exp(0.7424402 - 7.527762/time^.5 - 1.812513*log(time)/time^.5)
   } else { base.m.cum.br <- exp(-1.156036 + 0.4707332/time^2 - 3.51355/time)
   }
-  
+
   # Generate annual baseline breast mortality
   base.m.br <- base.m.cum.br
   for (i in 2:15) {
     base.m.br[i] <- base.m.cum.br[i] - base.m.cum.br[i-1] }
-  
+
   # Loop for different treatment options
   rx <- c(surg = 0,
           h = h,
@@ -256,28 +256,28 @@ benefits222 <- function(
     return(output)
   }
   )
-  
+
   # Calculate the cumulative breast cancer mortality rate
   m.cum.br.rx <- apply(m.br.rx, 2, cumsum)
-  
+
   # Calculate the cumulative breast cancer survival
   s.cum.br.rx <- exp(- m.cum.br.rx)
-  
+
   # Convert cumulative mortality rate into cumulative risk
   m.cum.br.rx <- 1- s.cum.br.rx
-  
+
   m.br.rx <- m.cum.br.rx
-  
+
   for (j in 1:cols) {
     for (i in 2:15) {
       m.br.rx[i,j] <- m.cum.br.rx[i,j] - m.cum.br.rx[i-1,j]
     }
   }
-  
+
   ## ------------------------------------------------------------------------
   m.cum.all.rx <- 1 - s.cum.oth.rx*s.cum.br.rx
   s.cum.all.rx <- 100-100*m.cum.all.rx
-  
+
   # Annual all cause mortality
   m.all.rx <- m.cum.all.rx
   for (j in 1:cols) {
@@ -285,9 +285,9 @@ benefits222 <- function(
       m.all.rx[i,j] <- m.cum.all.rx[i,j] - m.cum.all.rx[i-1,j]
     }
   }
-  
+
   ## ------------------------------------------------------------------------
-  
+
   # Proportion of all cause mortality that is breast cancer
   prop.br.rx      <- m.br.rx/(m.br.rx + m.oth.rx)
   pred.m.br.rx    <- prop.br.rx*m.all.rx
@@ -295,7 +295,7 @@ benefits222 <- function(
   pred.m.oth.rx   <- m.all.rx - pred.m.br.rx
   pred.cum.oth.rx <- apply(pred.m.oth.rx, 2, cumsum)
   pred.cum.all.rx <- pred.cum.br.rx + pred.cum.oth.rx
-  
+
   ## ------------------------------------------------------------------------
   dfs <- c(rep(0.687,5), rep(0.016,10))
   base.rel <- base.m.br*exp(dfs)
@@ -348,5 +348,5 @@ benefits222 <- function(
 
   # rx benefits
   return(100*(pred.cum.all.rel.rx[,1] - pred.cum.all.rel.rx))
-  
+
 }
