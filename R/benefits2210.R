@@ -27,12 +27,12 @@ benefits2210 <- function(
   er         = 1,     # ER+ = 1, ER- = 0
   her2       = 1,     # HER2+ = 1, HER2- = 0, missing = 9
   ki67       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
-  generation = 1,     # Chemo generation 0, 2 or 3 only
+  generation = 3,     # Chemo generation 0, 2 or 3 only
   horm       = 1,     # Hormone therapy Yes = 1, no = 0
   traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
   bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
-  delay      = 0
+  delay      = 5
 ) {
 
 
@@ -300,7 +300,7 @@ benefits2210 <- function(
   pred.cum.all.rx <- pred.cum.br.rx + pred.cum.oth.rx
 
   ## ------------------------------------------------------------------------
-  delay <- 0   # Set delay to 0 to check predictions with main model
+  #delay <- 0   # Set delay to 0 to check predictions with main model
   rows  <- 15 - delay
   time  <- c(1:rows)
   age5   <- age.start + delay - 1 + time
@@ -312,8 +312,6 @@ benefits2210 <- function(
 
   # Generate the time specific treatment coefficients
   h5   <- c(rep(h,rows))
-  #h10  <- c(rep(h, rows - 5), rep(-.2+h, 5)) #v2.1
-  #h10  <- c(rep(h, rows - 5), rep(-.342+h, 5)) #Shiny ref
   h10  <- c(rep(h, rows - 5), rep(-.26+h, 5)) #including both ATLAS and aTTom trials
 
   pi5  <- pi + h5 + r.br + c + t + b
