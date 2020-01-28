@@ -29,8 +29,8 @@ benefits2210 <- function(
   ki67       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
   generation = 3,     # Chemo generation 0, 2 or 3 only
   horm       = 1,     # Hormone therapy Yes = 1, no = 0
-  traz       = 1,     # Trastuzumab therapy Yes = 1, no = 0
-  bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
+  traz       = 0,#1,     # Trastuzumab therapy Yes = 1, no = 0
+  bis        = 0,#1,     # Bisphosphonate therapy Yes = 1, no = 0
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
   delay      = 5
 ) {
