@@ -1,16 +1,16 @@
 ## ----setup, include=FALSE------------------------------------------------
 #knitr::opts_chunk$set(echo = TRUE)
 
-#{:bis 1, :age 25, :radio 0, :bis? 1, :tra 1, :ki67 1, :chemoGen 3, :size 2, :radio? 0, :nodes 2, :grade 1, 
+#{:bis 1, :age 25, :radio 0, :bis? 1, :tra 1, :ki67 1, :chemoGen 3, :size 2, :radio? 0, :nodes 2, :grade 1,
  # :erstat 1, :rtime 15, :her2 1, :detection 1, :horm 1}
 
 
 ## ----input, echo=FALSE---------------------------------------------------
-age.start  <- 25
+age.start  <- 57
 screen     <- 1     # Clinically detected = 0, screen detected = 1
-size       <- 2    # Tumour size mm
-grade      <- 1     # Tumour grade
-nodes      <- 2     # Number positive nodes
+size       <- 20    # Tumour size mm
+grade      <- 2     # Tumour grade
+nodes      <- 10     # Number positive nodes
 er         <- 1     # ER+ = 1, ER- = 0
 her2       <- 1     # HER2+ = 1, HER2- = 0, missing = 9
 ki67       <- 1     # KI67+ = 1, KI67- = 0, missing = 9
@@ -20,6 +20,19 @@ traz       <- 1     # Trastuzumab therapy Yes = 1, no = 0
 bis        <- 1     # Bisphosphonate therapy Yes = 1, no = 0
 radio      <- 0     # Radiotherapy Yes = 1, no = 0
 
+# age.start  <- 25
+# screen     <- 1     # Clinically detected = 0, screen detected = 1
+# size       <- 2    # Tumour size mm
+# grade      <- 1     # Tumour grade
+# nodes      <- 2     # Number positive nodes
+# er         <- 1     # ER+ = 1, ER- = 0
+# her2       <- 1     # HER2+ = 1, HER2- = 0, missing = 9
+# ki67       <- 1     # KI67+ = 1, KI67- = 0, missing = 9
+# generation <- 3     # Chemo generation 0, 2 or 3 only
+# horm       <- 1     # Hormone therapy Yes = 1, no = 0
+# traz       <- 1     # Trastuzumab therapy Yes = 1, no = 0
+# bis        <- 1     # Bisphosphonate therapy Yes = 1, no = 0
+# radio      <- 0     # Radiotherapy Yes = 1, no = 0
 r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0
 
 ##----------------------------------------------------------------
@@ -58,8 +71,8 @@ if (r.enabled == 1) {
   r.base.br  <- log(1/((1-r.prop) + r.prop*r.breast))
   r.base.oth <- log(1/((1-r.prop) + r.prop*r.other))
 } else {
-  r.base.br   <- 0   
-  r.base.oth  <- 0  
+  r.base.br   <- 0
+  r.base.oth  <- 0
 }
 
 ## ------------------------------------------------------------------------
@@ -68,7 +81,7 @@ mi <- 0.0698252*((age.start/10)^2-34.23391957) + r.base.oth
 
 # Breast cancer mortality prognostic index (pi)
 pi <- age.beta.1*age.mfp.1 + age.beta.2*age.mfp.2 + size.beta*size.mfp +
-  nodes.beta*nodes.mfp + grade.beta*grade.val + screen.beta*screen + 
+  nodes.beta*nodes.mfp + grade.beta*grade.val + screen.beta*screen +
   her2.beta + ki67.beta + r.base.br
 
 c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
@@ -88,9 +101,9 @@ if(r.enabled == 1) {
 
 hc <- h + c
 ht <- h + t
-hb <- h + b 
-ct <- c + t # It is unlikely that hromone therapy would not be offered 
-cb <- c + b # in a woman with ER positive disease 
+hb <- h + b
+ct <- c + t # It is unlikely that hromone therapy would not be offered
+cb <- c + b # in a woman with ER positive disease
 tb <- t + b
 hct <- h + c + t
 hcb <- h + c + b
@@ -175,10 +188,10 @@ m.oth.rx <- sapply(rx.oth, function(rx.oth, x.vector = base.m.oth) {
 )
 
 # Calculate the cumulative other mortality rate
-m.cum.oth.rx <- apply(m.oth.rx, 2, cumsum) 
+m.cum.oth.rx <- apply(m.oth.rx, 2, cumsum)
 
 # Calculate the cumulative other survival
-s.cum.oth.rx <- exp(-m.cum.oth.rx)  
+s.cum.oth.rx <- exp(-m.cum.oth.rx)
 
 # Convert cumulative mortality rate into cumulative risk
 m.cum.oth.rx <- 1- s.cum.oth.rx
@@ -193,7 +206,7 @@ for (j in 1:cols) {
 ## ------------------------------------------------------------------------
 # Generate cumulative baseline breast mortality
 if (er==1) {
-  base.m.cum.br <- exp(0.7424402 - 7.527762/time^.5 - 1.812513*log(time)/time^.5) 
+  base.m.cum.br <- exp(0.7424402 - 7.527762/time^.5 - 1.812513*log(time)/time^.5)
 } else { base.m.cum.br <- exp(-1.156036 + 0.4707332/time^2 - 3.51355/time)
 }
 
@@ -245,10 +258,10 @@ m.br.rx <- sapply(rx, function(rx, x.vector = base.m.br) {
 )
 
 # Calculate the cumulative breast cancer mortality rate
-m.cum.br.rx <- apply(m.br.rx, 2, cumsum) 
+m.cum.br.rx <- apply(m.br.rx, 2, cumsum)
 
 # Calculate the cumulative breast cancer survival
-s.cum.br.rx <- exp(- m.cum.br.rx)  
+s.cum.br.rx <- exp(- m.cum.br.rx)
 
 # Convert cumulative mortality rate into cumulative risk
 m.cum.br.rx <- 1- s.cum.br.rx
@@ -277,7 +290,7 @@ for (j in 1:cols) {
 # Proportion of all cause mortality that is breast cancer
 prop.br.rx      <- m.br.rx/(m.br.rx + m.oth.rx)
 pred.m.br.rx    <- prop.br.rx*m.all.rx
-pred.cum.br.rx  <- apply(pred.m.br.rx, 2, cumsum) 
+pred.cum.br.rx  <- apply(pred.m.br.rx, 2, cumsum)
 pred.m.oth.rx   <- m.all.rx - pred.m.br.rx
 pred.cum.oth.rx <- apply(pred.m.oth.rx, 2, cumsum)
 pred.cum.all.rx <- pred.cum.br.rx + pred.cum.oth.rx
@@ -299,7 +312,7 @@ base.rel.rx <- sapply(rx, function(rx, x.vector = base.rel) {
 )
 
 # Calculate the cumulative relapse rate
-rel.cum.rx <- apply(base.rel.rx, 2, cumsum) 
+rel.cum.rx <- apply(base.rel.rx, 2, cumsum)
 
 # Calculate the cumulative relapse survival
 s.cum.rel.rx <- exp(- rel.cum.rx)
@@ -332,7 +345,7 @@ prop.rel.rx <- rel.rx/(rel.rx + m.oth.rx)
 
 # Calulate the predicted relapse and other mortality
 pred.m.rel.rx       <- prop.rel.rx*m.all.rx
-pred.cum.rel.rx     <- apply(pred.m.rel.rx, 2, cumsum) 
+pred.cum.rel.rx     <- apply(pred.m.rel.rx, 2, cumsum)
 pred.m.oth.rx       <- m.all.rx - pred.m.rel.rx
 pred.cum.oth.rx     <- apply(pred.m.oth.rx, 2, cumsum)
 pred.cum.all.rel.rx <- pred.cum.rel.rx + pred.cum.oth.rx
@@ -356,7 +369,7 @@ s.cum.oth.10 <- 1 - m.cum.oth.10
 h5   <- c(rep(h,rows))
 #h10  <- c(rep(h, rows - 5), rep(-.2+h, 5)) #v2.1
 #h10  <- c(rep(h, rows - 5), rep(-.342+h, 5)) #Shiny ref
-h10  <- c(rep(h, rows - 5), rep(-.296+h, 5)) #including both ATLAS and aTTom trials
+h10  <- c(rep(h, rows - 5), rep(-.26+h, 5)) #including both ATLAS and aTTom trials
 
 pi5  <- pi + h5 + r.br + c + t + b
 pi10 <- pi + h10 + r.br + c + t + b
@@ -369,7 +382,7 @@ m.br.rx.10 <- base.m.br[(1+delay):15]*exp(rx10)
 m.cum.br.rx.10 <- apply(m.br.rx.10, 2, cumsum)
 
 # Calculate the cumulative breast cancer survival
-s.cum.br.rx.10 <- exp(- m.cum.br.rx.10)  
+s.cum.br.rx.10 <- exp(- m.cum.br.rx.10)
 m.cum.br.rx.10 <- 1- s.cum.br.rx.10
 
 m.br.rx.10 <- m.cum.br.rx.10
@@ -394,7 +407,7 @@ for (j in 1:2) {
 # Proportion of all cause mortality that is breast cancer
 prop.br.rx.10      <- m.br.rx.10/(m.br.rx.10 + m.oth.10)
 pred.m.br.rx.10    <- prop.br.rx.10*m.all.rx.10
-pred.cum.br.rx.10  <- apply(pred.m.br.rx.10, 2, cumsum) 
+pred.cum.br.rx.10  <- apply(pred.m.br.rx.10, 2, cumsum)
 pred.m.oth.rx.10   <- m.all.rx.10 - pred.m.br.rx.10
 pred.cum.oth.rx.10 <- apply(pred.m.oth.rx.10, 2, cumsum)
 pred.cum.all.rx.10 <- pred.cum.br.rx.10 + pred.cum.oth.rx.10
