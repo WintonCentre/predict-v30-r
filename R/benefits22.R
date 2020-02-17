@@ -1,6 +1,6 @@
 ## ----setup, include=FALSE------------------------------------------------
 #knitr::opts_chunk$set(echo = TRUE)
-
+library(tibble)
 benefits22 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1
