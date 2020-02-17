@@ -3,10 +3,10 @@
 
 benefits21 <- function(
   age.start  = 57,
-  screen     = 1,     # Clinically detected = 0, screen detected = 1
-  size       = 20,    # Tumour size mm
-  grade      = 2,     # Tumour grade
-  nodes      = 10,     # Number positive nodes
+  screen     = 0,     # Clinically detected = 0, screen detected = 1
+  size       = 29,    # Tumour size mm
+  grade      = 1,     # Tumour grade
+  nodes      = 5,     # Number positive nodes
   er         = 1,     # ER+ = 1, ER- = 0
   her2       = 1,     # HER2+ = 1, HER2- = 0, missing = 9
   ki67       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
