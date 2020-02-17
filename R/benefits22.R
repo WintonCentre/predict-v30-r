@@ -209,7 +209,7 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
   # rx benefits
   # version implemented on web has benefit as difference in breast specific mortality
   benefits2.2 <- 100*(pred.cum.all[,1] - pred.cum.all)
-  benefits2.2[,1] <- 100*(1 - pred.cum.all.rx[,1]) # patch in baseline in surgery column
+  benefits2.2[,1] <- 100*(1 - pred.cum.all[,1]) # patch in baseline in surgery column
   return(benefits2.2)
   }
 
