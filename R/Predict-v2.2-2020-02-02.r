@@ -67,7 +67,7 @@ pi <- age.beta.1*age.mfp.1 + age.beta.2*age.mfp.2 + size.beta*size.mfp +
 
 c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
 h     <- ifelse(horm==1 & er==1, -0.3857, 0)
-h10  <- c(rep(h, 10), rep(-.296+h, 5)) #including both ATLAS and aTTom trials
+h10  <- c(rep(h, 10), rep(-.26+h, 5)) #including both ATLAS and aTTom trials
 t     <- ifelse(her2==1 & traz==1, -.3567, 0)
 b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
 
@@ -203,7 +203,7 @@ pred.cum.all <- pred.cum.br + pred.cum.oth
 benefits2.2 <- 100*(pred.cum.all[,1] - pred.cum.all)
 
 ## -----------------------------------------------------------------------
-# 
+#
 start <- 6
 m.oth <- m.oth[start:15]
 m.br <- m.br[start:15,]

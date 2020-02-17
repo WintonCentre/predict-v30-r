@@ -1,7 +1,7 @@
 ## ----setup, include=FALSE------------------------------------------------
 #knitr::opts_chunk$set(echo = TRUE)
 
-benefits22 <- function(
+benefits21 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1
   size       = 20,    # Tumour size mm
@@ -22,8 +22,6 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
       generation, horm,traz, bis, radio, delay))
   r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0
 
-  ##----------------------------------------------------------------
-  ##[WINTON FIX] Fix inputs
   ##----------------------------------------------------------------
   ##[WINTON FIX] Fix inputs
   screen    <- ifelse(screen == 2, 0.204, screen)
@@ -75,10 +73,9 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
 
   c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
   h     <- ifelse(horm==1 & er==1, -0.3857, 0)
-  h10  <- c(rep(h, 10), rep(-.26+h, 5)) #including both ATLAS and aTTom trials
   t     <- ifelse(her2==1 & traz==1, -.3567, 0)
   b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
-
+  #o    <- ifelse(ov==1, -0.2, 0) # Ready to add oophorectomy option
   if(r.enabled == 1) {
     r.br  <- ifelse(radio==1, log(r.breast), 0)
     r.oth <- ifelse(radio==1, log(r.other), 0)
@@ -87,77 +84,115 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
     r.oth = 0
   }
 
-  rx <- tibble(s = rep(0, 15),
-               c = c,
-               h = h,
-               t = t,
-               b = b,
-               hc = h + c,
-               ht = h + t,
-               hb = h + b,
-               ct = c + t, # It is unlikely that hromone therapy would not be offered
-               cb = c + b, # in a woman with ER positive disease
-               tb = t + b,
-               hct = h + c + t,
-               hcb = h + c + b,
-               htb = h + t + b,
-               ctb = c + t + b,
-               hctb = h + c + t + b,
-               h10 = h10,
-               h10c = h10 + c,
-               h10t = h10 + t,
-               h10b = h10 + b,
-               h10ct = h10 + c + t,
-               h10cb = h10 + c + b,
-               h10tb = h10 + t + b,
-               h10ctb = h10 + c + t + b,
-               hr = h + r.br,
-               rc = r.br + c,
-               rt = r.br + t,
-               rb = r.br + b,
-               hrc = h + r.br + c,
-               hrt = h + r.br + t,
-               hrb = h + r.br + b,
-               rct = r.br + c + t,
-               rcb = r.br + c + b,
-               rtb = r.br + t + b,
-               hrct = h + r.br + c + t,
-               hrcb = h + r.br + t + b,
-               hrtb = h + r.br + t + b,
-               rctb = r.br + c + t + b,
-               hrctb = h + r.br + c + t + b,
-               h10r = h10 + r.br,
-               h10rc = h10 + r.br + c,
-               h10rt = h10 + r.br + t,
-               h10rb = h10 + r.br + b,
-               h10rct = h10 + r.br + c + t,
-               h10rcb = h10 + r.br + t + b,
-               h10rtb = h10 + r.br + t + b,
-               h10rctb = h10 + r.br + c + t + b)
+  # Add in Winton extensions to allow other possible combinations of treatment
 
-  rx <- rx + pi
+  hc <- h + c
+  ht <- h + t
+  hb <- h + b
+  ct <- c + t # It is unlikely that hromone therapy would not be offered
+  cb <- c + b # in a woman with ER positive disease
+  tb <- t + b
+  hct <- h + c + t
+  hcb <- h + c + b
+  htb <- h + t + b
+  ctb <- c + t + b
+  hctb <- h + c + t + b
 
-  cols <- ncol(rx)
+  if(r.enabled == 1) {
+    hr <- h + r.br
+    rc <- r.br + c
+    rt <- r.br + t
+    rb <- r.br + b
+    hrc <- h + r.br + c
+    hrt <- h + r.br + t
+    hrb <- h + r.br + b
+    rct <- r.br + c + t
+    rcb <- r.br + c + b
+    rtb <- r.br + t + b
+    hrct <- h + r.br + c + t
+    hrcb <- h + r.br + t + b
+    hrtb <- h + r.br + t + b
+    rctb <- r.br + c + t + b
+    hrctb <- h + r.br + c + t + b
+  }
 
   ## ------------------------------------------------------------------------
   # Generate cumulative baseline other mortality
   base.m.cum.oth <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
 
   # Generate cumulative survival non-breast mortality
-  s.cum.oth <- exp(-exp(mi+r.oth)*base.m.cum.oth)
+  # s.cum.oth <- exp(-exp(mi)*base.m.cum.oth)   # never used
+
+  # Generate annual baseline non-breast mortality
+  base.m.oth <- base.m.cum.oth
+  for (i in 2:15) {
+    base.m.oth[i] <- base.m.cum.oth[i] - base.m.cum.oth[i-1] }
+
+  # Loop for different treatment options
+  rx.oth <- c(surg = 0,
+              h = 0,
+              c = 0,
+              t = 0,
+              b = 0,
+              hc = 0,
+              ht = 0,
+              hb = 0,
+              ct = 0,
+              cb = 0,
+              tb = 0,
+              hct = 0,
+              hcb = 0,
+              htb = 0,
+              ctb = 0,
+              hctb = 0)
+  if (r.enabled == 1) {
+    rx.oth <- c(rx.oth, r = r.oth,
+                hr = r.oth,
+                rc = r.oth,
+                rt = r.oth,
+                rb = r.oth,
+                hrc = r.oth,
+                hrt = r.oth,
+                hrb = r.oth,
+                rct = r.oth,
+                rcb = r.oth,
+                rtb = r.oth,
+                hrct = r.oth,
+                hrcb = r.oth,
+                hrtb = r.oth,
+                rctb = r.oth,
+                hrctb = r.oth)
+  }
+
+  cols <- length(rx.oth) # Number of RX categories
+
+  # Generate the annual non-breast mortality rate
+  # Matrix (15x9) with column for each treatment
+  m.oth.rx <- sapply(rx.oth, function(rx.oth, x.vector = base.m.oth) {
+    output <-  x.vector*exp(mi + rx.oth)
+    return(output)
+  }
+  )
+
+  # Calculate the cumulative other mortality rate
+  m.cum.oth.rx <- apply(m.oth.rx, 2, cumsum)
+
+  # Calculate the cumulative other survival
+  s.cum.oth.rx <- exp(-m.cum.oth.rx)
 
   # Convert cumulative mortality rate into cumulative risk
-  m.cum.oth <- 1- s.cum.oth
+  m.cum.oth.rx <- 1- s.cum.oth.rx
 
-  # Annual other mortality rate
-  m.oth <- m.cum.oth
-  for (i in 2:15) {
-    m.oth[i] <- m.cum.oth[i] - m.cum.oth[i-1]
+  m.oth.rx <- m.cum.oth.rx
+  for (j in 1:cols) {
+    for (i in 2:15) {
+      m.oth.rx[i,j] <- m.cum.oth.rx[i,j] - m.cum.oth.rx[i-1,j]
+    }
   }
 
   ## ------------------------------------------------------------------------
   # Generate cumulative baseline breast mortality
-  if (er==1) {
+  if (er == 1) {
     base.m.cum.br <- exp(0.7424402 - 7.527762/time^.5 - 1.812513*log(time)/time^.5)
   } else { base.m.cum.br <- exp(-1.156036 + 0.4707332/time^2 - 3.51355/time)
   }
@@ -167,47 +202,93 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
   for (i in 2:15) {
     base.m.br[i] <- base.m.cum.br[i] - base.m.cum.br[i-1] }
 
+  # Loop for different treatment options
+  rx <- c(surg = 0,
+          h = h,
+          c = c,
+          t = t,
+          b = b,
+          hc = hc,
+          ht = ht,
+          hb = hb,
+          ct = ct,
+          cb = cb,
+          tb = tb,
+          hct = hct,
+          hcb = hcb,
+          htb = htb,
+          ctb = ctb,
+          hctb = hctb)
+  if (r.enabled == 1) {
+    rx <- c(rx, r = r.br,
+            hr = hr,
+            rc = rc,
+            rt = rt,
+            rb = rb,
+            hrc = hrc,
+            hrt = hrt,
+            hrb = hrb,
+            rct = rct,
+            rcb = rcb,
+            rtb = rtb,
+            hrct = hrct,
+            hrcb = hrcb,
+            hrtb = hrtb,
+            rctb = rctb,
+            hrctb = hrctb)
+  }
   # Generate the annual breast cancer specific mortality rate
-  m.br <- base.m.br*exp(rx)
+  m.br.rx <- sapply(rx, function(rx, x.vector = base.m.br) {
+    output <-  x.vector*exp(pi + rx)
+    return(output)
+  }
+  )
 
   # Calculate the cumulative breast cancer mortality rate
-  m.cum.br <- apply(m.br, 2, cumsum)
+  m.cum.br.rx <- apply(m.br.rx, 2, cumsum)
 
   # Calculate the cumulative breast cancer survival
-  s.cum.br <- exp(- m.cum.br)
-  m.cum.br <- 1- s.cum.br
+  s.cum.br.rx <- exp(- m.cum.br.rx)
 
-  m.br <- m.cum.br
-  for (j in 1:2) {
-    for (i in 2:15) {
-      m.br[i,j] <- m.cum.br[i,j] - m.cum.br[i-1,j]
-    }
-  }
+  # Convert cumulative mortality rate into cumulative risk
+  m.cum.br.rx <- 1- s.cum.br.rx
 
-  # Cumulative all cause mortality conditional on surviving breast and all cause mortality
-  m.cum.all <- 1 - s.cum.oth*s.cum.br
-  s.cum.all <- 100-100*m.cum.all
+  m.br.rx <- m.cum.br.rx
 
-  # Annual all cause mortality
-  m.all <- m.cum.all
   for (j in 1:cols) {
     for (i in 2:15) {
-      m.all[i,j] <- m.cum.all[i,j] - m.cum.all[i-1,j]
+      m.br.rx[i,j] <- m.cum.br.rx[i,j] - m.cum.br.rx[i-1,j]
     }
   }
 
   ## ------------------------------------------------------------------------
+  m.cum.all.rx <- 1 - s.cum.oth.rx*s.cum.br.rx
+  s.cum.all.rx <- 100-100*m.cum.all.rx
+
+  # Annual all cause mortality
+  m.all.rx <- m.cum.all.rx
+  for (j in 1:cols) {
+    for (i in 2:15) {
+      m.all.rx[i,j] <- m.cum.all.rx[i,j] - m.cum.all.rx[i-1,j]
+    }
+  }
+
+  ## ------------------------------------------------------------------------
+
   # Proportion of all cause mortality that is breast cancer
-  prop.br      <- m.br/(m.br + m.oth)
-  pred.m.br    <- prop.br*m.all
-  pred.cum.br  <- apply(pred.m.br, 2, cumsum)
-  pred.m.oth   <- m.all - pred.m.br
-  pred.cum.oth <- apply(pred.m.oth, 2, cumsum)
-  pred.cum.all <- pred.cum.br + pred.cum.oth
+  prop.br.rx      <- m.br.rx/(m.br.rx + m.oth.rx)
+  pred.m.br.rx    <- prop.br.rx*m.all.rx
+  pred.cum.br.rx  <- apply(pred.m.br.rx, 2, cumsum)
+  pred.m.oth.rx   <- m.all.rx - pred.m.br.rx
+  pred.cum.oth.rx <- apply(pred.m.oth.rx, 2, cumsum)
+  pred.cum.all.rx <- pred.cum.br.rx + pred.cum.oth.rx
 
   ## ------------------------------------------------------------------------
   # rx benefits
   # version implemented on web has benefit as difference in breast specific mortality
-  benefits2.2 <- 100*(pred.cum.all[,1] - pred.cum.all)
-  return(benefits2.2)
+  benefits2.1 <- 100*(pred.cum.all.rx[,1] - pred.cum.all.rx)
+  benefits2.1[,1] <- 100*(1 - pred.cum.all.rx[,1])
+  return(benefits2.1)
+  #return(100*(pred.cum.all.rx[,1] - pred.cum.all.rx))
+
   }
