@@ -87,7 +87,7 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
     r.oth = 0
   }
 
-  rx <- tibble(s = rep(0, 15),
+  rx <- tibble(surg = rep(0, 15),
                c = c,
                h = h,
                t = t,
@@ -209,5 +209,7 @@ print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
   # rx benefits
   # version implemented on web has benefit as difference in breast specific mortality
   benefits2.2 <- 100*(pred.cum.all[,1] - pred.cum.all)
+  benefits2.2[,1] <- 100*(1 - pred.cum.all.rx[,1]) # patch in baseline in surgery column
   return(benefits2.2)
   }
+
