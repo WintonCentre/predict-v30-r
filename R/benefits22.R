@@ -1,6 +1,6 @@
 ## ----setup, include=FALSE------------------------------------------------
 #knitr::opts_chunk$set(echo = TRUE)
-library(tibble)
+
 benefits22 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1
@@ -17,7 +17,7 @@ benefits22 <- function(
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
   delay      = 0
 ) {
-
+  library(tibble)
 print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
       generation, horm,traz, bis, radio, delay))
   r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0
