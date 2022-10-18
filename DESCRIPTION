@@ -5,9 +5,9 @@ Version: 0.3.0
 Author: Paul Pharoah wrote the model. Mike Pearson packaged it like this for use in an opencpu server
 Maintainer: Mike Pearson <gmp26@cam.ac.uk>
 Description: Provides the predictv2.2 model and Predictv3.0 as functions.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.2
 Imports: 
     tibble

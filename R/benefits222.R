@@ -2,7 +2,7 @@
 #'
 #' calculation for delay zero, years 1 to 15
 #' @param age.start Age at time of surgery
-#' @param screening Clinically detected = 0, screening detected = 1
+#' @param screen Clinically detected = 0, screening detected = 1
 #' @param size Tumour size mm
 #' @param grade Tumour grade
 #' @param nodes Number positive nodes
@@ -14,9 +14,9 @@
 #' @param traz Trastuzumab therapy Yes = 1, no = 0
 #' @param bis Bisphosphonate therapy Yes = 1, no = 0
 #' @param radio Radiotherapy Yes = 1, no = 0
+#' @param delay Look at extended hormone after 5 year delay
 #' @export
-#' @examples
-#' benefits222()
+#' @examples benefits222()
 benefits222 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1

@@ -21,7 +21,7 @@
 #' @return able of treatment benefits
 #' @export benefits22
 #'
-#' @examples
+#' @examples benefits22()
 
 benefits22 <- function(
   age.start  = 57,
