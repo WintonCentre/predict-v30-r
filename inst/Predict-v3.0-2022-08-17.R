@@ -221,5 +221,5 @@ pred.cum.all <- pred.cum.br + pred.cum.oth
 
 surv_conditional <- 100*(1-pred.cum.all)[c(10), c(1:3)]
 
-rm(list=setdiff(ls(), c("benefits", "surv", "surv_conditional")))
+# rm(list=setdiff(ls(), c("benefits", "surv", "surv_conditional")))
 
