@@ -1,4 +1,4 @@
-# predict-v22-r
-Predict V2.2 R reference model
+# predict-v30-r
+Predict models in R up to 3.0
 
-This provides a functional interface to the Predict R model so it may be called in end to end tests.
+This provides a functional interface to Predict R models so they may be served by OpenCPU.
