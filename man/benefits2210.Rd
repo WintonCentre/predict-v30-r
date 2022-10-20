@@ -13,18 +13,22 @@ benefits2210(
   er = 1,
   her2 = 1,
   ki67 = 1,
-  generation = 1,
+  generation = 3,
   horm = 1,
-  traz = 1,
-  bis = 1,
+  traz = 0,
+  bis = 0,
   radio = 0,
-  delay = 0
+  delay = 5
 )
 }
 \arguments{
 \item{age.start}{Age at time of surgery}
 
+\item{screen}{Clinically detected = 0, screening detected = 1}
+
 \item{size}{Tumour size mm}
+
+\item{grade}{Tumour grade}
 
 \item{nodes}{Number positive nodes}
 
@@ -45,13 +49,9 @@ benefits2210(
 \item{radio}{Radiotherapy Yes = 1, no = 0}
 
 \item{delay}{0 or 5 years since surgery for h10 benefit}
-
-\item{screening}{Clinically detected = 0, screening detected = 1}
-
-\item{tumour}{Tumour grade}
 }
 \description{
-h10 over h5 benefits with delay 5 or 10
+h10 over h5 benefits with delay 0 or 5.
 }
 \examples{
 benefits2210()

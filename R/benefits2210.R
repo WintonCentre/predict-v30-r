@@ -2,7 +2,7 @@
 #'
 #' h10 over h5 benefits with delay 0 or 5.
 #' @param age.start Age at time of surgery
-#' @param screening Clinically detected = 0, screening detected = 1
+#' @param screen Clinically detected = 0, screening detected = 1
 #' @param size Tumour size mm
 #' @param grade Tumour grade
 #' @param nodes Number positive nodes

@@ -2,18 +2,18 @@
 % Please edit documentation in R/benefits22.R
 \name{benefits22}
 \alias{benefits22}
-\title{v2.2 predict survival benefits years 1 to 15}
+\title{Title Calculate Predict2.2 treatment benefits given patient details}
 \usage{
 benefits22(
   age.start = 57,
-  screening = 1,
-  size = 20,
-  grade = 2,
-  nodes = 10,
+  screen = 0,
+  size = 29,
+  grade = 1,
+  nodes = 5,
   er = 1,
   her2 = 1,
   ki67 = 1,
-  generation = 1,
+  generation = 3,
   horm = 1,
   traz = 1,
   bis = 1,
@@ -22,11 +22,13 @@ benefits22(
 )
 }
 \arguments{
-\item{age.start}{Age at time of surgery}
+\item{age.start}{Patient age in years}
 
-\item{screening}{Clinically detected = 0, screening detected = 1}
+\item{screen}{Clinically detected = 0, screen detected = 1}
 
 \item{size}{Tumour size mm}
+
+\item{grade}{Tumour grade}
 
 \item{nodes}{Number positive nodes}
 
@@ -46,12 +48,13 @@ benefits22(
 
 \item{radio}{Radiotherapy Yes = 1, no = 0}
 
-\item{delay}{0 or 5 years since surgery for h10 benefit}
-
-\item{tumour}{Tumour grade}
+\item{delay}{= 1 Choose extended hormone after 5 years. 0 = before first course}
+}
+\value{
+able of treatment benefits
 }
 \description{
-calculation for delay zero, years 1 to 15
+Title Calculate Predict2.2 treatment benefits given patient details
 }
 \examples{
 benefits22()

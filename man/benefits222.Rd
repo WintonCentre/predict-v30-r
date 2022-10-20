@@ -6,7 +6,7 @@
 \usage{
 benefits222(
   age.start = 57,
-  screening = 1,
+  screen = 1,
   size = 20,
   grade = 2,
   nodes = 10,
@@ -24,9 +24,11 @@ benefits222(
 \arguments{
 \item{age.start}{Age at time of surgery}
 
-\item{screening}{Clinically detected = 0, screening detected = 1}
+\item{screen}{Clinically detected = 0, screening detected = 1}
 
 \item{size}{Tumour size mm}
+
+\item{grade}{Tumour grade}
 
 \item{nodes}{Number positive nodes}
 
@@ -46,9 +48,7 @@ benefits222(
 
 \item{radio}{Radiotherapy Yes = 1, no = 0}
 
-\item{delay}{0 or 5 years since surgery for h10 benefit}
-
-\item{tumour}{Tumour grade}
+\item{delay}{Look at extended hormone after 5 year delay}
 }
 \description{
 calculation for delay zero, years 1 to 15
