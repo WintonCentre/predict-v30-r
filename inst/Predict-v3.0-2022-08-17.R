@@ -1,4 +1,5 @@
-library(tidyverse)
+# library("tidyr")
+# library("dplyr")
 ## ----input, echo=FALSE---------------------------------------------------
 age.start  <- 65
 screen     <- 0     # Clinically detected = 0, screen detected = 1
@@ -16,7 +17,7 @@ horm       <- 1     # Hormone therapy Yes = 1, no = 0
 traz       <- 0     # Trastuzumab therapy Yes = 1, no = 0
 bis        <- 1     # Bisphosphonate therapy Yes = 1, no = 0
 radio      <- 1     # Radiotherapy Yes = 1, no = 0
-heart.gy   <- 1     # No grays radiotherapy to heart
+heart.gy   <- 1     # Number of grays radiotherapy to heart
 
 ## --- lifestyle
 smoker     <- 1     # Never/ex = 0, current = 1
@@ -89,7 +90,7 @@ t     <- ifelse(her2==1 & traz==1, -.3567, 0)
 b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
 r  <- ifelse(radio==1, log(r.breast), 0)
 
-rx <- tibble(s = rep(0, 15),
+rx <- tibble::tibble(s = rep(0, 15),
              rx = r + h + c + t + b,
              rx10 = r + h10 + c + t + b)
 
@@ -169,7 +170,7 @@ surv <- 100*(1-pred.cum.all)[c(5,10,15), ]
 ## ------------------------------------------------------------------------
 # rx benefits
 # version implemented on web has benefit as difference in breast specific mortality
-benefits <- as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
+benefits <- tibble::as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
   mutate(year = c(5, 10, 15)) %>%
   pivot_longer(cols=1:3, names_to = "rx", values_to = "benefit")
 
