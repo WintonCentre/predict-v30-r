@@ -223,5 +223,5 @@ benefits30 <- function(
       mutate(year = c(5, 10, 15)) %>%
       pivot_longer(cols=1:3, names_to = "rx", values_to = "benefit")
   })
-  return(locals30)
+  return(as.list.environment(locals30))
 }
