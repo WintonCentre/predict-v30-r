@@ -49,27 +49,27 @@ benefits30 <- function(
 ) {
 
   # Create an environment for local vars
-  locals30 <- new.env(parent = environment())
+  locals30 <- new.env()
   with(locals30, {
-    age.start  = age.start.in;
-    screen     = screen.in;     # Clinically detected = 0, screen detected = 1
-    size       = size.in;    # Tumour size mm
-    grade      = grade.in;     # Tumour grade
-    nodes      = nodes.in;     # Number positive nodes
-    er         = er.in;     # ER+ = 1, ER- = 0
-    her2       = her2.in;     # HER2+ = 1, HER2- = 0, missing = 9
-    ki67       = ki67.in;     # KI67+ = 1, KI67- = 0, missing = 9
-    pr         = pr.in;     # PR+ = 1, PR- = 0, missing = 9
+    age.start  <- age.start.in;
+    screen     <- screen.in;     # Clinically detected <- 0, screen detected = 1
+    size       <- size.in;    # Tumour size mm
+    grade      <- grade.in;     # Tumour grade
+    nodes      <- nodes.in;     # Number positive nodes
+    er         <- er.in;     # ER+ = 1, ER- = 0
+    her2       <- her2.in;     # HER2+ = 1, HER2- = 0, missing = 9
+    ki67       <- ki67.in;     # KI67+ = 1, KI67- = 0, missing = 9
+    pr         <- pr.in;     # PR+ = 1, PR- = 0, missing = 9
 
     ## --- treatment
-    generation = generation.in;     # Chemo generation 0, 2 or 3 only
-    horm       = horm.in;     # Hormone therapy Yes = 1, no = 0
-    traz       = traz.in;     # Trastuzumab therapy Yes = 1, no = 0
-    bis        = bis.in;     # Bisphosphonate therapy Yes = 1, no = 0
-    radio      = radio.in;     # Radiotherapy Yes = 1, no = 0
-    heart.gy   = heart.gy.in;     # No grays radiotherapy to heart
+    generation <- generation.in;     # Chemo generation 0, 2 or 3 only
+    horm       <- horm.in;     # Hormone therapy Yes = 1, no = 0
+    traz       <- traz.in;     # Trastuzumab therapy Yes = 1, no = 0
+    bis        <- bis.in;     # Bisphosphonate therapy Yes = 1, no = 0
+    radio      <- radio.in;     # Radiotherapy Yes = 1, no = 0
+    heart.gy   <- heart.gy.in;     # No grays radiotherapy to heart
 
-    smoker = smoker.in;
+    smoker <- smoker.in;
 
     ##----------------------------------------------------------------
     ##[WINTON FIX] Fix inputs for missing data
