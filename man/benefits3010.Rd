@@ -4,43 +4,60 @@
 \alias{benefits3010}
 \title{Title Calculate benefits of continuing endocrine therapy assuming survival to 5 years}
 \usage{
-benefits3010()
+benefits3010(
+  age.start.in = 65,
+  screen.in = 0,
+  size.in = 25,
+  grade.in = 2,
+  nodes.in = 2,
+  er.in = 1,
+  her2.in = 0,
+  ki67.in = 1,
+  pr.in = 1,
+  generation.in = 2,
+  horm.in = 1,
+  traz.in = 0,
+  bis.in = 1,
+  radio.in = 1,
+  heart.gy.in = 1,
+  smoker.in = 1
+)
 }
 \arguments{
-\item{age.start}{Patient age in years}
+\item{age.start.in}{Patient age in years}
 
-\item{screen}{Clinically detected = 0, screen detected = 1}
+\item{screen.in}{Clinically detected = 0, screen detected = 1}
 
-\item{size}{Tumour size mm}
+\item{size.in}{Tumour size mm}
 
-\item{grade}{Tumour grade}
+\item{grade.in}{Tumour grade}
 
-\item{nodes}{Number positive nodes}
+\item{nodes.in}{Number positive nodes}
 
-\item{er}{ER+ = 1, ER- = 0}
+\item{er.in}{ER+ = 1, ER- = 0}
 
-\item{her2}{HER2+ = 1, HER2- = 0, missing = 9}
+\item{her2.in}{HER2+ = 1, HER2- = 0, missing = 9}
 
-\item{ki67}{KI67+ = 1, KI67- = 0, missing = 9}
+\item{ki67.in}{KI67+ = 1, KI67- = 0, missing = 9}
 
-\item{pr}{ptogeserpne satus PR+ = 1 PR- = 0}
+\item{pr.in}{ptogeserpne satus PR+ = 1 PR- = 0}
 
-\item{generation}{Chemo generation 0, 2 or 3 only}
+\item{generation.in}{Chemo generation 0, 2 or 3 only}
 
-\item{horm}{Hormone therapy Yes = 1, no = 0}
+\item{horm.in}{Hormone therapy Yes = 1, no = 0}
 
-\item{traz}{Trastuzumab therapy Yes = 1, no = 0}
+\item{traz.in}{Trastuzumab therapy Yes = 1, no = 0}
 
-\item{bis}{Bisphosphonate therapy Yes = 1, no = 0}
+\item{bis.in}{Bisphosphonate therapy Yes = 1, no = 0}
 
-\item{radio}{Radiotherapy Yes = 1, no = 0}
+\item{radio.in}{Radiotherapy Yes = 1, no = 0}
 
-\item{heart.gy}{Number of grays radiation to the heart}
+\item{heart.gy.in}{Number of grays radiation to the heart}
 
-\item{smoker}{Never/ex = 0, current = 1}
+\item{smoker.in}{Never/ex = 0, current = 1}
 }
 \value{
-table of treatment benefits
+list of environment variables
 }
 \description{
 Title Calculate benefits of continuing endocrine therapy assuming survival to 5 years

@@ -3,51 +3,71 @@
 
 #' Title Calculate benefits of continuing endocrine therapy assuming survival to 5 years
 #'
-#' @param age.start Patient age in years
-#' @param screen Clinically detected = 0, screen detected = 1
-#' @param size Tumour size mm
-#' @param grade Tumour grade
-#' @param nodes Number positive nodes
-#' @param er ER+ = 1, ER- = 0
-#' @param her2 HER2+ = 1, HER2- = 0, missing = 9
-#' @param ki67 KI67+ = 1, KI67- = 0, missing = 9
-#' @param pr ptogeserpne satus PR+ = 1 PR- = 0
-#' @param generation Chemo generation 0, 2 or 3 only
-#' @param horm Hormone therapy Yes = 1, no = 0
-#' @param traz Trastuzumab therapy Yes = 1, no = 0
-#' @param bis Bisphosphonate therapy Yes = 1, no = 0
-#' @param radio Radiotherapy Yes = 1, no = 0
-#' @param heart.gy Number of grays radiation to the heart
-#' @param smoker Never/ex = 0, current = 1
+#' @param age.start.in Patient age in years
+#' @param screen.in Clinically detected = 0, screen detected = 1
+#' @param size.in Tumour size mm
+#' @param grade.in Tumour grade
+#' @param nodes.in Number positive nodes
+#' @param er.in ER+ = 1, ER- = 0
+#' @param her2.in HER2+ = 1, HER2- = 0, missing = 9
+#' @param ki67.in KI67+ = 1, KI67- = 0, missing = 9
+#' @param pr.in ptogeserpne satus PR+ = 1 PR- = 0
+#' @param generation.in Chemo generation 0, 2 or 3 only
+#' @param horm.in Hormone therapy Yes = 1, no = 0
+#' @param traz.in Trastuzumab therapy Yes = 1, no = 0
+#' @param bis.in Bisphosphonate therapy Yes = 1, no = 0
+#' @param radio.in Radiotherapy Yes = 1, no = 0
+#' @param heart.gy.in Number of grays radiation to the heart
+#' @param smoker.in Never/ex = 0, current = 1
 #'
-#' @return table of treatment benefits
+#' @return list of environment variables
 #' @export benefits3010
 #'
 #' @examples benefits3010()
 
-benefits3010 <- function() {
-  locals <- benefits30(  age.start  = 65,
-                         screen     = 0,     # Clinically detected = 0, screen detected = 1
-                         size       = 25,    # Tumour size mm
-                         grade      = 2,     # Tumour grade
-                         nodes      = 2,     # Number positive nodes
-                         er         = 1,     # ER+ = 1, ER- = 0
-                         her2       = 0,     # HER2+ = 1, HER2- = 0, missing = 9
-                         ki67       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
-                         pr         = 1,     # PR+ = 1, PR- = 0, missing = 9
+benefits3010 <- function(age.start.in  = 65,
+                         screen.in     = 0,     # Clinically detected = 0, screen detected = 1
+                         size.in       = 25,    # Tumour size mm
+                         grade.in      = 2,     # Tumour grade
+                         nodes.in      = 2,     # Number positive nodes
+                         er.in         = 1,     # ER+ = 1, ER- = 0
+                         her2.in       = 0,     # HER2+ = 1, HER2- = 0, missing = 9
+                         ki67.in       = 1,     # KI67+ = 1, KI67- = 0, missing = 9
+                         pr.in         = 1,     # PR+ = 1, PR- = 0, missing = 9
 
                          ## --- treatment
-                         generation = 2,     # Chemo generation 0, 2 or 3 only
-                         horm       = 1,     # Hormone therapy Yes = 1, no = 0
-                         traz       = 0,     # Trastuzumab therapy Yes = 1, no = 0
-                         bis        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
-                         radio      = 1,     # Radiotherapy Yes = 1, no = 0
-                         heart.gy   = 1,     # No grays radiotherapy to heart
+                         generation.in = 2,     # Chemo generation 0, 2 or 3 only
+                         horm.in       = 1,     # Hormone therapy Yes = 1, no = 0
+                         traz.in       = 0,     # Trastuzumab therapy Yes = 1, no = 0
+                         bis.in        = 1,     # Bisphosphonate therapy Yes = 1, no = 0
+                         radio.in      = 1,     # Radiotherapy Yes = 1, no = 0
+                         heart.gy.in   = 1,     # No grays radiotherapy to heart
 
                          ## --- lifestyle
-                         smoker     = 1     # Never/ex = 0, current = 1
-  )
-  with(locals, {
+                         smoker.in     = 1)     # Never/ex = 0, current = 1
+{
+  locals3010 <- list2env(benefits30(
+    age.start.in,
+    screen.in,
+    size.in,
+    grade.in,
+    nodes.in,           # Number positive nodes
+    er.in,
+    her2.in,
+    ki67.in,
+    pr.in,
+
+    ## --- treatment
+    generation.in,
+    horm.in,
+    traz.in,
+    bis.in,
+    radio.in,
+    heart.gy.in,
+
+    ## --- lifestyle
+    smoker.in))
+  with(locals3010, {
     ## -----------------------------------------------------------------------
     # Calculating the benefit of continuing endocrine therapy
     # assuming survival to 5 years
@@ -93,6 +113,6 @@ benefits3010 <- function() {
     pred.cum.all <- pred.cum.br + pred.cum.oth
 
     surv_conditional <- 100*(1-pred.cum.all)[c(10), c(1:3)]
-    return(surv_conditional)
+    return(as.list.environment(locals3010))
   })
 }
