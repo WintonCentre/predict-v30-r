@@ -139,53 +139,9 @@ benefits30 <- function(
     b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
     r  <- ifelse(radio==1, log(r.breast), 0)
 
-  rx <- tibble(surg = rep(0, 15),
-               c = c,
-               h = h,
-               t = t,
-               b = b,
-               hc = h + c,
-               ht = h + t,
-               hb = h + b,
-               ct = c + t, # It is unlikely that hromone therapy would not be offered
-               cb = c + b, # in a woman with ER positive disease
-               tb = t + b,
-               hct = h + c + t,
-               hcb = h + c + b,
-               htb = h + t + b,
-               ctb = c + t + b,
-               hctb = h + c + t + b,
-               h10 = h10,
-               h10c = h10 + c,
-               h10t = h10 + t,
-               h10b = h10 + b,
-               h10ct = h10 + c + t,
-               h10cb = h10 + c + b,
-               h10tb = h10 + t + b,
-               h10ctb = h10 + c + t + b,
-               hr = h + r.br,
-               rc = r.br + c,
-               rt = r.br + t,
-               rb = r.br + b,
-               hrc = h + r.br + c,
-               hrt = h + r.br + t,
-               hrb = h + r.br + b,
-               rct = r.br + c + t,
-               rcb = r.br + c + b,
-               rtb = r.br + t + b,
-               hrct = h + r.br + c + t,
-               hrcb = h + r.br + t + b,
-               hrtb = h + r.br + t + b,
-               rctb = r.br + c + t + b,
-               hrctb = h + r.br + c + t + b,
-               h10r = h10 + r.br,
-               h10rc = h10 + r.br + c,
-               h10rt = h10 + r.br + t,
-               h10rb = h10 + r.br + b,
-               h10rct = h10 + r.br + c + t,
-               h10rcb = h10 + r.br + t + b,
-               h10rtb = h10 + r.br + t + b,
-               h10rctb = h10 + r.br + c + t + b)
+    rx <- tibble(s = rep(0, 15),
+                 rx = r + h + c + t + b,
+                 rx10 = r + h10 + c + t + b)
 
     rx <- rx + pi
 
