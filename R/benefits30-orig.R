@@ -21,11 +21,11 @@
 #' @param smoker.in Never/ex = 0, current = 1
 #'
 #' @return table of treatment benefits
-#' @export benefits30
+#' @export benefits30.old
 #'
 #' @examples benefits30()
 
-benefits30 <- function(
+benefits30.old <- function(
     age.start.in  = 65,
     screen.in     = 0,     # Clinically detected = 0, screen detected = 1
     size.in       = 25,    # Tumour size mm
