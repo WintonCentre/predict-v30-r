@@ -205,7 +205,7 @@ benefits30 <- function(
     # Annual other mortality rate
     m.oth <- m.cum.oth
     for (i in 2:15) {
-      m.oth[i] <- m.cum.oth[i] - m.cum.oth[i-1]
+        m.oth[i] <- m.cum.oth[i] - m.cum.oth[i-1]
     }
 
     ## ------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 #' @param er.in ER+ = 1, ER- = 0
 #' @param her2.in HER2+ = 1, HER2- = 0, missing = 9
 #' @param ki67.in KI67+ = 1, KI67- = 0, missing = 9
-#' @param pr.in ptogeserpne satus PR+ = 1 PR- = 0
+#' @param pr.in ptogesterone satus PR+ = 1 PR- = 0
 #' @param generation.in Chemo generation 0, 2 or 3 only
 #' @param horm.in Hormone therapy Yes = 1, no = 0
 #' @param traz.in Trastuzumab therapy Yes = 1, no = 0
