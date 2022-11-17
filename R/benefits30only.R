@@ -21,11 +21,11 @@
 #' @param smoker.in Never/ex = 0, current = 1
 #'
 #' @return table of treatment benefits
-#' @export benefits30.old
+#' @export benefits30only
 #'
-#' @examples benefits30()
+#' @examples benefits30only()
 
-benefits30.old <- function(
+benefits30only <- function(
     age.start.in  = 65,
     screen.in     = 0,     # Clinically detected = 0, screen detected = 1
     size.in       = 25,    # Tumour size mm
@@ -219,9 +219,12 @@ benefits30.old <- function(
     ## ------------------------------------------------------------------------
     # rx benefits
     # version implemented on web has benefit as difference in breast specific mortality
-    benefits <- as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
-      mutate(year = c(5, 10, 15)) %>%
-      pivot_longer(cols=1:3, names_to = "rx", values_to = "benefit")
+    # benefits <- as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
+    #   mutate(year = c(5, 10, 15)) %>%
+    #   pivot_longer(cols=1:3, names_to = "rx", values_to = "benefit")
   })
-  return(as.list.environment(locals30))
+  benefits30only <- 100*(pred.cum.all[,1] - pred.cum.all)
+  benefits30only[,1] <- 100*(1 - pred.cum.all[,1]) # patch in baseline in surgery column
+
+  return(100*(pred.cum.all[,1] - pred.cum.all))
 }
