@@ -1,7 +1,6 @@
 ## ----setup, include=FALSE------------------------------------------------
 #knitr::opts_chunk$set(echo = TRUE)
 
-
 #' Title Calculate Predict3.0 treatment benefits given patient details
 #'
 #' @param age.start.in Patient age in years
