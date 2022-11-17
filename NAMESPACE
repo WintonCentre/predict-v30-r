@@ -2,7 +2,7 @@
 
 export("%>%")
 export(benefits30)
-export(benefits30.old)
+export(benefits30only)
 export(benefits3010)
 importFrom(dplyr,mutate)
 importFrom(magrittr,"%>%")
