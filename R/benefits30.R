@@ -147,7 +147,7 @@ benefits30 <- function(
                  hc = h + c,
                  ht = h + t,
                  hb = h + b,
-                 ct = c + t, # It is unlikely that hromone therapy would not be offered
+                 ct = c + t, # It is unlikely that hormone therapy would not be offered
                  cb = c + b, # in a woman with ER positive disease
                  tb = t + b,
                  hct = h + c + t,
