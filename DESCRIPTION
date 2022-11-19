@@ -1,7 +1,7 @@
 Package: PREDICT3
 Type: Package
 Title: Publishes Predict v2.2 AND Predictv3.0 as functions
-Version: 0.3.0
+Version: 0.3.1
 Author: Paul Pharoah wrote the model. Mike Pearson packaged it like this for use in an opencpu server
 Maintainer: Mike Pearson <gmp26@cam.ac.uk>
 Description: Provides the predictv2.2 model and Predictv3.0 as functions.
