@@ -2,8 +2,8 @@
 
 export("%>%")
 export(benefits30)
-export(benefits30only)
 export(benefits3010)
+export(benefits30only)
 importFrom(dplyr,mutate)
 importFrom(magrittr,"%>%")
 importFrom(tibble,as_tibble)

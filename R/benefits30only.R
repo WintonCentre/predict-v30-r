@@ -224,9 +224,11 @@ benefits30only <- function(
     # benefits <- as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
     #   mutate(year = c(5, 10, 15)) %>%
     #   pivot_longer(cols=1:3, names_to = "rx", values_to = "benefit")
-  })
-  benefits30only <- 100*(pred.cum.all[,1] - pred.cum.all)
-  benefits30only[,1] <- 100*(1 - pred.cum.all[,1]) # patch in baseline in surgery column
 
-  return(100*(pred.cum.all[,1] - pred.cum.all))
+      benefits30only <- 100*(pred.cum.all[,1] - pred.cum.all)
+      benefits30only[,1] <- 100*(1 - pred.cum.all[,1]) # patch in baseline in surgery column
+
+      return(100*(pred.cum.all[,1] - pred.cum.all)) 
+  })
+
 }
