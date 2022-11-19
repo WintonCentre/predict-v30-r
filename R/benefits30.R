@@ -125,7 +125,7 @@ benefits30 <- function(
     # Other mortality prognostic index (mi)
     c.oth <- ifelse(generation==0, 0, log(c.other))
     r.oth <- ifelse(radio==0, 0, log(r.other)*heart.gy)
-    age.base <- (age.start/10)^2-34.23391957)
+    age.base <- (age.start/10)^2-34.23391957) #WINTON export for test
     mi <- 0.0698252*(age.base + r.base.oth + smoker.beta + c.oth + r.oth
 
     # Breast cancer mortality prognostic index (pi)
