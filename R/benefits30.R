@@ -199,6 +199,8 @@ benefits30 <- function(
 
     # Generate cumulative survival non-breast mortality
     # Incorporates the increased mortality associated with chemo and radiotherapy
+    # WINTON Fix: c.oth and r.oth have already been included
+    #s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
     s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
 
     # Convert cumulative mortality rate into cumulative risk

@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 .idea/
+.calva/
+.clj-kondo/
+.lsp/
