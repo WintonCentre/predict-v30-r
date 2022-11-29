@@ -195,13 +195,13 @@ benefits30 <- function(
 
     ## ------------------------------------------------------------------------
     # Generate cumulative baseline other mortality
-    base.m.cum.oth.star <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
+    base.m.cum.oth <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
 
     # Generate cumulative survival non-breast mortality
     # Incorporates the increased mortality associated with chemo and radiotherapy
     # WINTON Fix: c.oth and r.oth have already been included
     #s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
-    s.cum.oth <- exp(-exp(mi)*base.m.cum.oth.star)
+    s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
 
     # Convert cumulative mortality rate into cumulative risk
     m.cum.oth <- 1- s.cum.oth
@@ -269,6 +269,7 @@ benefits30 <- function(
     # version implemented on web has benefit as difference in breast specific mortality
     benefits30 <- 100*(pred.cum.all[,1] - pred.cum.all)
     benefits30[,1] <- 100*(1 - pred.cum.all[,1]) # patch in baseline in surgery column
+
 
     # Original Paul Pharoah code commented out below. Not used in tests
     # benefits <- as_tibble(signif(100*(pred.cum.all[,1] - pred.cum.all), 3)[c(5,10,15),]) %>%
