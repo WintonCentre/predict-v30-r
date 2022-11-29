@@ -195,13 +195,13 @@ benefits30 <- function(
 
     ## ------------------------------------------------------------------------
     # Generate cumulative baseline other mortality
-    base.m.cum.oth <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
+    base.m.cum.oth.star <- exp(-6.052919 + (1.079863*log(time)) + (.3255321*time^.5))
 
     # Generate cumulative survival non-breast mortality
     # Incorporates the increased mortality associated with chemo and radiotherapy
     # WINTON Fix: c.oth and r.oth have already been included
     #s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
-    s.cum.oth <- exp(-exp(mi + c.oth + r.oth)*base.m.cum.oth)
+    s.cum.oth <- exp(-exp(mi)*base.m.cum.oth.star)
 
     # Convert cumulative mortality rate into cumulative risk
     m.cum.oth <- 1- s.cum.oth
