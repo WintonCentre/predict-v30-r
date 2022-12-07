@@ -190,6 +190,8 @@ benefits30 <- function(
                  h10rctb = h10 + r.br + c + t + b)
 
     rx <- rx + pi
+
+    # export treatment combination names for clojurescript test purposes. Otherwise this is unused.
     treatments <- colnames(rx)
 
     cols <- ncol(rx)
