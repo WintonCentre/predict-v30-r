@@ -141,16 +141,17 @@ benefits30 <- function(
     b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
     r.br  <- ifelse(radio==1, log(r.breast), 0)
 
-    rx <- tibble(surg = rep(0, 15),
+    rxbase <- tibble(surg = rep(0, 15),
                  c = c,
                  h = h,
                  t = t,
                  b = b,
+                 r = r.br, # check!
                  hc = h + c,
                  ht = h + t,
                  hb = h + b,
                  ct = c + t, # It is unlikely that hormone therapy would not be offered
-                 cb = c + b, # in a woman with ER positive disease
+                 cb = c + b, # to a woman with ER positive disease
                  tb = t + b,
                  hct = h + c + t,
                  hcb = h + c + b,
@@ -182,6 +183,8 @@ benefits30 <- function(
                  hrctb = h + r.br + c + t + b,
                  h10r = h10 + r.br,
                  h10rc = h10 + r.br + c,
+
+
                  h10rt = h10 + r.br + t,
                  h10rb = h10 + r.br + b,
                  h10rct = h10 + r.br + c + t,
@@ -189,12 +192,12 @@ benefits30 <- function(
                  h10rtb = h10 + r.br + t + b,
                  h10rctb = h10 + r.br + c + t + b)
 
-    rx <- rx + pi
+    rx <- rxbase + pi
 
     # export treatment combination names for clojurescript test purposes. Otherwise this is unused.
     treatments <- colnames(rx)
 
-    cols <- ncol(rx)
+    cols <- ncol(rxbase)
 
     ## ------------------------------------------------------------------------
     # Generate cumulative baseline other mortality
@@ -228,13 +231,13 @@ benefits30 <- function(
       base.m.br[i] <- base.m.cum.br[i] - base.m.cum.br[i-1] }
 
     # Generate the annual breast cancer specific mortality rate
-    m.br <- base.m.br*exp(rx)
+    m.br.1 <- base.m.br*exp(rx)
 
     # Calculate the cumulative breast cancer mortality rate
-    m.cum.br <- apply(m.br, 2, cumsum)
+    m.cum.br.1 <- apply(m.br.1, 2, cumsum)
 
     # Calculate the cumulative breast cancer survival
-    s.cum.br <- exp(- m.cum.br)
+    s.cum.br <- exp(- m.cum.br.1)
     m.cum.br <- 1- s.cum.br
 
     m.br <- m.cum.br
