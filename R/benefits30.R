@@ -142,58 +142,18 @@ benefits30 <- function(
     r.br  <- ifelse(radio==1, log(r.breast), 0)
 
     rxbase <- tibble(surg = rep(0, 15),
-                 # c = c,
-                 # h = h,
-                 # t = t,
-                 # b = b,
+
                  h = h,
-                 hr = h + r.br, # check!
-                 #hc = h + c,
-                 #ht = h + t,
-                 #hb = h + b,
-                 # ct = c + t, # It is unlikely that hormone therapy would not be offered
-                 # cb = c + b, # to a woman with ER positive disease
-                 # tb = t + b,
+                 hr = h + r.br,
                  hrc = h + r.br + c,
                  hrct = h + r.br + c + t,
-                 # hcb = h + c + b,
-                 # htb = h + t + b,
-                 # ctb = c + t + b,
                  hrctb = h + r.br + c + t + b,
-                 hr10 = h10 + r.br,
-                 hr10c = h10 + r.br + c,
-                 hr10ct = h10 + r.br + c + t,
-                 hr10ctb = h10 + r.br + c + t + b,
-                 # h10b = h10 + b,
-                 # h10ct = h10 + c + t,
-                 # h10cb = h10 + c + b,
-                 # h10tb = h10 + t + b,
-                 # h10ctb = h10 + c + t + b,
-                 # hr = h + r.br,
-                 # rc = r.br + c,
-                 # rt = r.br + t,
-                 # rb = r.br + b,
-                 # hrc = h + r.br + c,
-                 # hrt = h + r.br + t,
-                 # hrb = h + r.br + b,
-                 # rct = r.br + c + t,
-                 # rcb = r.br + c + b,
-                 # rtb = r.br + t + b,
-                 # hrct = h + r.br + c + t,
-                 # hrcb = h + r.br + t + b,
-                 # hrtb = h + r.br + t + b,
-                 # rctb = r.br + c + t + b,
-                 # hrctb = h + r.br + c + t + b,
-                 # h10r = h10 + r.br,
-                 # h10rc = h10 + r.br + c,
-                 #
-                 #
-                 # h10rt = h10 + r.br + t,
-                 # h10rb = h10 + r.br + b,
-                 # h10rct = h10 + r.br + c + t,
-                 # h10rcb = h10 + r.br + t + b,
-                 # h10rtb = h10 + r.br + t + b,
-                 # h10rctb = h10 + r.br + c + t + b
+
+                 h10 = h10,
+                 h10r = h10 + r.br,
+                 h10rc = h10 + r.br + c,
+                 h10rct = h10 + r.br + c + t,
+                 h10rctb = h10 + r.br + c + t + b
                  )
 
     rx <- rxbase + pi
