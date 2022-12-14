@@ -146,6 +146,7 @@ benefits30 <- function(
                  # h = h,
                  # t = t,
                  # b = b,
+                 h = h,
                  hr = h + r.br, # check!
                  #hc = h + c,
                  #ht = h + t,
