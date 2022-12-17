@@ -24,6 +24,7 @@
 #' @export benefits30
 #'
 #' @examples benefits30()
+options(pillar.sigfig = 4)
 
 benefits30 <- function(
     age.start.in  = 65,
