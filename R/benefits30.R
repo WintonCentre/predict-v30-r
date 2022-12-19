@@ -200,7 +200,7 @@ benefits30 <- function(
     m.br.1 <- base.m.br*exp(rx)
 
     # Calculate the cumulative breast cancer mortality rate
-    m.cum.br.1 <- apply(m.br.1, c(1,2), cumsum)
+    m.cum.br.1 <- apply(m.br.1, 2, cumsum)
 
     # Calculate the cumulative breast cancer survival
     s.cum.br <- exp(- m.cum.br.1)
