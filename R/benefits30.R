@@ -207,7 +207,7 @@ benefits30 <- function(
     m.cum.br <- 1- s.cum.br
 
     m.br <- m.cum.br
-    for (j in 1:2) {
+    for (j in 1:cols) {
       for (i in 2:15) {
         m.br[i,j] <- m.cum.br[i,j] - m.cum.br[i-1,j]
       }
@@ -276,6 +276,5 @@ s200 <- function() {
   benefits30(bis.in=1,age.start.in=40,size.in=3,screen.in=1,heart.gy.in=12,nodes.in=0.5,generation.in=0,pr.in=1,smoker.in=1,horm.in=0,grade.in=1,er.in=1,ki67.in=1,traz.in=1,her2.in=1,radio.in=1)
 }
 s251 <- function() {
-  benefits30(age.start.in=55,size.in=40,screen.in=0,heart.gy.in=25,nodes.in=4,generation.in=2,pr.in=0,smoker.in=1,horm.in=1,grade.in=2,er.in=1,ki67.in=1,traz.in=1,her2.in=1,radio.in=1)
-
+  benefits30(bis.in=0,age.start.in=55,size.in=40,screen.in=0,heart.gy.in=25,nodes.in=4,generation.in=2,pr.in=0,smoker.in=1,horm.in=1,grade.in=2,er.in=1,ki67.in=1,traz.in=1,her2.in=1,radio.in=1)
 }

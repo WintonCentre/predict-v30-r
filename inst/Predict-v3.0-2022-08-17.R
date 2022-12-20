@@ -138,7 +138,7 @@ s.cum.br <- exp(- m.cum.br)
 m.cum.br <- 1- s.cum.br
 
 m.br <- m.cum.br
-for (j in 1:2) {
+for (j in 1:cols) {
   for (i in 2:15) {
     m.br[i,j] <- m.cum.br[i,j] - m.cum.br[i-1,j]
   }
