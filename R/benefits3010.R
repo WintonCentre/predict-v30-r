@@ -112,7 +112,7 @@ benefits3010 <- function(age.start.in  = 65,
     pred.cum.oth <- apply(pred.m.oth, 2, cumsum)
     pred.cum.all <- pred.cum.br + pred.cum.oth
 
-    surv_conditional <- 100*(1-pred.cum.all)[c(10), c(1:3)]
+    surv_conditional <- 100*(1-pred.cum.all)[c(1:10), c(1:3)]
     return(as.list.environment(locals3010))
   })
 }
