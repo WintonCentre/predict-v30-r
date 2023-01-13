@@ -87,7 +87,8 @@ benefits3010 <- function(age.start.in  = 65,
 
     m.br <- m.cum.br
     for (j in 1:cols) {
-      for (i in 2:10) {
+      for (i in 2:10) {       # In this R version, years 6:15 correspond to  i in 2:10 (in R inclusive notation)
+                              # But shouldn't this be i in 2:11 as 2:10 only covers years 6:14 ??
         m.br[i,j] <- m.cum.br[i,j] - m.cum.br[i-1,j]
       }
     }

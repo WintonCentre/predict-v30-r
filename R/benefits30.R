@@ -137,6 +137,9 @@ benefits30 <- function(
 
     c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
     h     <- ifelse(horm==1 & er==1, -0.3857, 0)
+
+    # h10 betas are the same as h betas for 10 years, and then gain another -.26 benefit in years 11 to 15. 
+    # Note that this means the benefit of taking extended hormone from year 6 only shows up 5 years later.
     h10  <- ifelse(h==0, 0, c(rep(h, 10), rep(-.26+h, 5))) #including both ATLAS and aTTom trials
     t     <- ifelse(her2==1 & traz==1, -.3567, 0)
     b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
@@ -184,6 +187,10 @@ benefits30 <- function(
         m.oth[i] <- m.cum.oth[i] - m.cum.oth[i-1]
     }
 
+    #
+    # NB This m.oth is carried forward into the benefits3010 calculation
+    #
+
     ## ------------------------------------------------------------------------
     # Generate cumulative baseline breast mortality
     if (er==1) {
@@ -196,7 +203,13 @@ benefits30 <- function(
     for (i in 2:15) {
       base.m.br[i] <- base.m.cum.br[i] - base.m.cum.br[i-1] }
 
-    # Generate the annual breast cancer specific mortality rate
+    #
+    # This base.m.br is carried forward into the benefits3010 calculation
+    #
+
+    # Generate the annual breast cancer specific mortality rate.
+    # benefits3010 repeats this calculation, but with base.m.br and rx resampled over years 6:15
+    # See benefits3010.R from line 79.
     m.br.1 <- base.m.br*exp(rx)
 
     # Calculate the cumulative breast cancer mortality rate

@@ -303,7 +303,7 @@ benefits2210 <- function(
   #delay <- 0   # Set delay to 0 to check predictions with main model
   rows  <- 15 - delay
   time  <- c(1:rows)
-  age5   <- age.start + delay - 1 + time
+  age5   <- age.start + delay - 1 + time  # age5 is unused
 
   # Generate annual survival from cumulative survival
   m.oth.10 <- m.oth.rx[(1+delay):15]
