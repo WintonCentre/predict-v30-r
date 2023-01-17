@@ -73,7 +73,7 @@ benefits3010 <- function(age.start.in  = 65,
     # assuming survival to 5 years
     start <- 6
     m.oth <- m.oth[start:15]
-    s.cum.oth <- 1-cumsum(m.oth)
+    s.cum.oth.ten <- 1-cumsum(m.oth)
 
     # Generate the annual breast cancer specific mortality rate
     m.br <- base.m.br[start:15]*exp(rx[start:15,])
@@ -94,7 +94,7 @@ benefits3010 <- function(age.start.in  = 65,
     }
 
     # Cumulative all cause mortality conditional on surviving breast and all cause mortality
-    m.cum.all <- 1 - s.cum.oth*s.cum.br
+    m.cum.all <- 1 - s.cum.oth.ten*s.cum.br
     s.cum.all <- 100-100*m.cum.all
 
     # Annual all cause mortality
