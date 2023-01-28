@@ -76,7 +76,9 @@ benefits3010 <- function(age.start.in  = 65,
     s.cum.oth.ten <- 1-cumsum(m.oth)
 
     # Generate the annbreast cancer specific mortality rate
-    m.br0 <- base.m.br[start:15]*exp(rx[start:15,])
+    base.m.br.delay <- base.m.br[start:15] # added for test
+    rx.delay <- exp(rx[start:15,])    # added for test
+    m.br0 <- base.m.br[start:15]*exp(rx[start:15,]) #this m.br renamed to m.br0 for test. m.br is redefined below
 
     # Calculate the cumulative breast cancer mortality rate
     m.cum.br <- apply(m.br0, 2, cumsum)
