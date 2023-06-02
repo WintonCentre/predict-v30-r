@@ -24,7 +24,7 @@
 #' @export benefits30
 #'
 #' @examples benefits30()
-options(pillar.sigfig = 4)
+
 
 benefits30 <- function(
     age.start.in  = 65,
@@ -48,10 +48,14 @@ benefits30 <- function(
     ## --- lifestyle
     smoker.in     = 1     # Never/ex = 0, current = 1
 ) {
+  #set tibble print precision
+  options(pillar.sigfig = 4)
+
 
   # Create an environment for local vars
   locals30 <- new.env()
   with(locals30, {
+
     age.start  <- age.start.in;
     screen     <- screen.in;     # Clinically detected <- 0, screen detected = 1
     size       <- size.in;    # Tumour size mm
@@ -138,7 +142,7 @@ benefits30 <- function(
     c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
     h     <- ifelse(horm==1 & er==1, -0.3857, 0)
 
-    # h10 betas are the same as h betas for 10 years, and then gain another -.26 benefit in years 11 to 15. 
+    # h10 betas are the same as h betas for 10 years, and then gain another -.26 benefit in years 11 to 15.
     # Note that this means the benefit of taking extended hormone from year 6 only shows up 5 years later.
     h10  <- ifelse(h==0, 0, c(rep(h, 10), rep(-.26+h, 5))) #including both ATLAS and aTTom trials
     t     <- ifelse(her2==1 & traz==1, -.3567, 0)

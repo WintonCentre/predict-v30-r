@@ -2,7 +2,7 @@
 #'
 #' h10 over h5 benefits with delay 0 or 5.
 #' @param age.start Age at time of surgery
-#' @param screening Clinically detected = 0, screening detected = 1
+#' @param screen Clinically detected = 0, screen detected = 1
 #' @param size Tumour size mm
 #' @param grade Tumour grade
 #' @param nodes Number positive nodes
@@ -16,8 +16,7 @@
 #' @param radio Radiotherapy Yes = 1, no = 0
 #' @param delay 0 or 5 years since surgery for h10 benefit
 #' @export
-#' @examples
-#' benefits2210()
+#' @examples benefits2210()
 benefits2210 <- function(
   age.start  = 57,
   screen     = 1,     # Clinically detected = 0, screen detected = 1

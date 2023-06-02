@@ -17,7 +17,7 @@ benefits22 <- function(
   radio      = 0,     # Radiotherapy Yes = 1, no = 0
   delay      = 0
 ) {
-  library(tibble)
+#  library(tibble)
 print(c(age.start, screen, size, grade, nodes, er, her2, ki67,
       generation, horm,traz, bis, radio, delay))
   r.enabled  <- 0     # Radiotherapy enabled = 1, disabled = 0
