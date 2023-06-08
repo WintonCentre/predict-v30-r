@@ -352,7 +352,8 @@ benefits31 <- function(
     # Generate cumulative baseline breast mortality
     if (er==1) {
       base.m.cum.br <- exp(h1_br_i + h1_br_t1*((time/10)^-0.5) + h1_br_t2*((time/10)^-0.5*log(time/10)))
-    } else {exp(h0_br_i + h0_br_t1*((time/10)^-1) + h0_br_t2*((time/10)^-1*log(time/10)))
+    } else {
+      base.m.cum.br <- exp(h0_br_i + h0_br_t1*((time/10)^-1) + h0_br_t2*((time/10)^-1*log(time/10)))
     }
 
     # Generate annual baseline breast mortality
