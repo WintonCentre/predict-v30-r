@@ -128,6 +128,9 @@ benefits3110 <- function(age.start.in  = 65,
       }
     }
 
+    m.oth.test <- m.oth[start:15] #added for tests
+    s.cum.oth.ten <- 1-cumsum(m.oth.test) #added for tests
+
     # Generate the annual breast cancer specific mortality rate
     m.br <- base.m.br[start:15]*exp(pi.rx[start:15,])
 
