@@ -201,7 +201,7 @@ benefits31 <- function(
 
     ## ------------------------------------------------------------------------
     # Other mortality prognostic index (mi)
-    c.oth <- log(c.other)
+    c.oth <- ifelse(generation==0, 0, log(c.other))
     r.oth <- log(r.other)*heart.gy
     mi <-  ag_ot_ea.beta.1*((age/100)^3) + ag_ot_ea.beta.2*((age/100)^3*log(age/100))  + yr_ot_ea.beta*(year-2000) +
       r.base.oth + smoker.beta
@@ -401,12 +401,19 @@ benefits31 <- function(
 
     surv <- as_tibble(100*(1-pred.cum.all))
 
+    ifelse(horm == 0,
     benefits <- benefits <- tibble(r_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,2]), 1),
                                    h_benefit = round(100*(pred.cum.all[,2] - pred.cum.all[,3]), 1),
                                    c_benefit = round(100*(pred.cum.all[,3] - pred.cum.all[,7]), 1),
                                    t_benefit = round(100*(pred.cum.all[,7] - pred.cum.all[,13]), 1),
                                    b_benefit = round(100*(pred.cum.all[,13] - pred.cum.all[,17]), 1),
-                                   total_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,17]), 1))
+                                   total_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,17]), 1)),
+    benefits <- benefits <- tibble(r_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,2]), 1),
+                                   h_benefit = round(100*(pred.cum.all[,2] - pred.cum.all[,32]), 1),
+                                   c_benefit = round(100*(pred.cum.all[,32] - pred.cum.all[,33]), 1),
+                                   t_benefit = round(100*(pred.cum.all[,33] - pred.cum.all[,36]), 1),
+                                   b_benefit = round(100*(pred.cum.all[,36] - pred.cum.all[,39]), 1),
+                                   total_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,39]), 1)))
     return(as.list.environment(locals30))
   })
 }
