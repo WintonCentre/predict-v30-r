@@ -111,7 +111,7 @@ benefits3110 <- function(age.start.in  = 65,
     # assuming sruvival to 5 years
     start <- 6
 
-    m.oth.test <- m.oth[start:15] #added for tests
+    m.oth.test <- m.oth[start:15,] #added for tests
     s.cum.oth.ten <- 1-cumsum(m.oth.test) #added for tests  
 
     # Generate the annual other cancer specific mortality rate
