@@ -112,10 +112,10 @@ benefits3110 <- function(age.start.in  = 65,
     start <- 6
 
     # Generate the annual other cancer specific mortality rate
-    m.oth <- base.m.oth[start:15]*exp(mi.rx[start:15,])
+    m.oth.2 <- base.m.oth[start:15]*exp(mi.rx[start:15,])
 
     # Calculate the cumulative other cancer mortality rate
-    m.cum.oth <- apply(m.oth, 2, cumsum)
+    m.cum.oth <- apply(m.oth.2, 2, cumsum)
 
     # Calculate the cumulative oth cancer survival
     s.cum.oth <- exp(- m.cum.oth)
