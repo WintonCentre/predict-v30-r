@@ -153,7 +153,7 @@ benefits3110 <- function(age.start.in  = 65,
     }
 
     # Cumulative all cause mortality conditional on surviving breast and all cause mortality
-    m.cum.all <- 1 - s.cum.oth*s.cum.br
+    m.cum.all <- 1 - s.cum.oth.ten*s.cum.br
     s.cum.all <- 100-100*m.cum.all
 
     # Annual all cause mortality
