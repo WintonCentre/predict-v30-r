@@ -111,11 +111,14 @@ benefits3110 <- function(age.start.in  = 65,
     # assuming sruvival to 5 years
     start <- 6
 
+    # New version of m.oth, based on benefits31 directly
+    m.oth <- m.oth[start:15,]
+
     # Generate the annual other cancer specific mortality rate
     m.oth.2 <- base.m.oth[start:15]*exp(mi.rx[start:15,])
 
     # Calculate the cumulative other cancer mortality rate
-    m.cum.oth <- apply(m.oth.2, 2, cumsum)
+    m.cum.oth <- apply(m.oth, 2, cumsum)
 
     # Calculate the cumulative oth cancer survival
     s.cum.oth <- exp(- m.cum.oth)
@@ -128,8 +131,7 @@ benefits3110 <- function(age.start.in  = 65,
     #   }
     # } 
 
-     # New version of m.oth, based on benefits31 directly
-    m.oth <- m.oth[start:15, 1:cols]
+    # For debug purposes
     s.cum.oth.ten <- m.oth
     for (j in 1:cols) {
       s.cum.oth.ten <- 1-cumsum(m.oth[,j])
