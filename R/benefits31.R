@@ -333,9 +333,11 @@ benefits31 <- function(
 
     # Generate the annual other cancer specific mortality rate
     m.oth <- base.m.oth*exp(mi.rx)
+    m.oth.temp <- m.oth #dbg
 
     # Calculate the cumulative other cancer mortality rate
     m.cum.oth <- apply(m.oth, 2, cumsum)
+    m.cum.oth.temp <- m.cum.oth
 
     # Calculate the cumulative breast cancer survival
     s.cum.oth <- exp(- m.cum.oth)
