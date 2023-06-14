@@ -112,24 +112,24 @@ benefits3110 <- function(age.start.in  = 65,
     start <- 6
 
     # New version of m.oth, based on benefits31 directly
-    m.oth <- m.oth[start:15,]
+    # m.oth <- m.oth[start:15,]
 
     # Generate the annual other cancer specific mortality rate
-    # m.oth <- base.m.oth[start:15]*exp(mi.rx[start:15,])
+    m.oth <- base.m.oth[start:15]*exp(mi.rx[start:15,])
 
     # Calculate the cumulative other cancer mortality rate
-    # m.cum.oth <- apply(m.oth, 2, cumsum)
+    m.cum.oth <- apply(m.oth, 2, cumsum)
 
     # Calculate the cumulative oth cancer survival
-    # s.cum.oth <- exp(- m.cum.oth)
-    # m.cum.oth <- 1- s.cum.oth
+    s.cum.oth <- exp(- m.cum.oth)
+    m.cum.oth <- 1- s.cum.oth
 
-    # m.oth <- m.cum.oth
-    #  for (j in 1:cols) {
-    #    for (i in 2:10) {
-    #      m.oth[i,j] <- m.cum.oth[i,j] - m.cum.oth[i-1,j]
-    #    }
-    #  } 
+    m.oth <- m.cum.oth
+     for (j in 1:cols) {
+       for (i in 2:10) {
+         m.oth[i,j] <- m.cum.oth[i,j] - m.cum.oth[i-1,j]
+       }
+     } 
 
     # For debug purposes
     s.cum.oth.ten <- m.oth
@@ -155,7 +155,7 @@ benefits3110 <- function(age.start.in  = 65,
     }
 
     # Cumulative all cause mortality conditional on surviving breast and all cause mortality
-    m.cum.all <- 1 - s.cum.oth.ten*s.cum.br
+    m.cum.all <- 1 - s.cum.oth*s.cum.br
     s.cum.all <- 100-100*m.cum.all
 
     # Annual all cause mortality
