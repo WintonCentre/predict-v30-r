@@ -201,7 +201,7 @@ benefits31 <- function(
 
     ## ------------------------------------------------------------------------
     # Other mortality prognostic index (mi)
-    c.oth <- ifelse(generation==0, 0, log(c.other))
+    c.oth <- ifelse(generation==0, 0, log(c.other)) # winton fix, for easier comparisons with cljs code
     r.oth <- log(r.other)*heart.gy
     mi <-  ag_ot_ea.beta.1*((age/100)^3) + ag_ot_ea.beta.2*((age/100)^3*log(age/100))  + yr_ot_ea.beta*(year-2000) +
       r.base.oth + smoker.beta

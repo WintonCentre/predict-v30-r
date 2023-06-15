@@ -111,9 +111,6 @@ benefits3110 <- function(age.start.in  = 65,
     # assuming sruvival to 5 years
     start <- 6
 
-    # New version of m.oth, based on benefits31 directly
-    # m.oth <- m.oth[start:15,]
-
     # Generate the annual other cancer specific mortality rate
     m.oth <- base.m.oth[start:15]*exp(mi.rx[start:15,])
 
@@ -130,12 +127,6 @@ benefits3110 <- function(age.start.in  = 65,
          m.oth[i,j] <- m.cum.oth[i,j] - m.cum.oth[i-1,j]
        }
      } 
-
-    # For debug purposes
-    s.cum.oth.ten <- m.oth
-      for (j in 1:cols) {
-        s.cum.oth.ten[,j] <- 1-cumsum(m.oth[,j])
-      }
 
     # Generate the annual breast cancer specific mortality rate
     m.br <- base.m.br[start:15]*exp(pi.rx[start:15,])
