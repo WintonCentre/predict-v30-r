@@ -215,7 +215,7 @@ benefits31 <- function(
     c     <- ifelse(generation == 0, 0, ifelse(generation == 2, -.248, -.446))
     h     <- ifelse(horm==1 & er==1, -0.3857, 0)
     h10  <- if(h==0) {0
-    } else {c(rep(h, 10), rep(-.26+h, 5)) } #including both ATLAS and aTTom trials
+    } else {c(rep(h, 10), rep(-.301+h, 5)) } #including both ATLAS and aTTom trials
     t     <- ifelse(her2==1 & traz==1, -.3567, 0)
     b     <- ifelse(bis==1, -0.198, 0) # Only applicable to menopausal women.
     r  <- ifelse(radio==1, log(r.breast), 0)
