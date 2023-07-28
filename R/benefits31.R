@@ -194,7 +194,7 @@ benefits31 <- function(
     c.other  <- 1.2  # RH non-breast mortality from Kerr et al (2022)
     r.prop   <- 0.69 # Proportion of population receiving radiotherapy
     r.breast <- 0.82 # Relative hazard breast specific mortality from Darby et al
-    r.other  <- 1.04 # Relative hazard other mortality per Gy heart dose from Taylor et al (2017)
+    r.other  <- 1.02 # Relative hazard other mortality per Gy heart dose from Taylor et al (2017)
 
     r.base.br  <- log(1/((1-r.prop) + r.prop*r.breast))
     r.base.oth <- log(1/((1-r.prop) + r.prop*(r.other^2))) # Assume 2 Gy average heart dose
