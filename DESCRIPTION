@@ -1,4 +1,4 @@
-Package: PREDICT3
+Package: predictv30r
 Type: Package
 Title: Publishes Predict v2.2, v3.0, v3.1, v3.2 as functions
 Version: 0.3.2
