@@ -7,7 +7,7 @@ Maintainer: Mehdi HAJJAM <mehdihajjam@gmail.com>
 Description: Provides the predictv2.2 model and Predictv3.0 as functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 RoxygenNote: 7.3.2
 Imports: 
     dplyr,
