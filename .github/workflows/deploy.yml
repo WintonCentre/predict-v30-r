@@ -1,4 +1,4 @@
-name: Deploy to OpenCPU
+name: Deploy to OpenCPU public cloud
 
 on:
   push:
