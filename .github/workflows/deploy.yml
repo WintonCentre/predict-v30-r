@@ -1,0 +1,17 @@
+name: Deploy to OpenCPU
+
+on:
+  push:
+    branches:
+      - master 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify OpenCPU
+        run: |
+          curl -X POST https://cloud.opencpu.org/ocpu/webhook/github \
+               -H "Content-Type: application/json" \
+               -d '{"ref": "refs/heads/master", "repository": {"name": "predictv30r", "owner": {"login": "WintonCentre"}}}'
