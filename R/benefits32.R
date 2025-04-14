@@ -49,6 +49,7 @@ benefits32 <- function(
 
 )
 {
+  print("Starting benefits32 function")
   options(pillar.sigfig = 4)
 
   # Version with size  parameterised as  1 -  exp(-size/20)
