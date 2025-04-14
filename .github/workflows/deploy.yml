@@ -12,6 +12,5 @@ jobs:
     steps:
       - name: Notify OpenCPU
         run: |
-          curl -X POST https://cloud.opencpu.org/ocpu/webhook/github \
-               -H "Content-Type: application/json" \
-               -d '{"ref": "refs/heads/master", "repository": {"name": "predictv30r", "owner": {"login": "WintonCentre"}}}'
+          Rscript -e 'devtools::install()'
+          curl -X POST https://cloud.opencpu.org/ocpu/github/WintonCentre/predictv30r
