@@ -73,7 +73,7 @@ benefits3210 <- function(age.start.in  = 65,
   # Version with size  parameterised as  1 -  exp(-size/20)
 
   #coeffs probably doesn't need to be retuened as is in locals
-  csv_path <- system.file("extdata", "coefficients_v3.csv", package = "PREDICT3")
+  csv_path <- system.file("extdata", "coefficients_v3.csv", package = "predictv30r")
   coeffs <- read_csv(csv_path, show_col_types = FALSE)
 
   # Move into locals3110 environment if you need to see these...
