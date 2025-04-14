@@ -54,7 +54,16 @@ benefits32 <- function(
   # Version with size  parameterised as  1 -  exp(-size/20)
 
   #coeffs probably doesn't need to be retuened as is in locals
+  tryCatch({
   csv_path <- system.file("extdata", "coefficients_v3.csv", package = "predictv30r")
+  print(paste("CSV Path:", csv_path))
+  print("CSV loaded successfully")
+  }, error = function(e) {
+    print(paste("Error:", e$message)) # Print the actual error message
+    return(NULL) # Return something to indicate failure
+  })
+}
+
   coeffs <- read_csv(csv_path, show_col_types = FALSE)
 
   # Move into locals31 environment if you need to see these...
@@ -417,4 +426,3 @@ benefits32 <- function(
                                    total10_benefit = round(100*(pred.cum.all[,1] - pred.cum.all[,39]), 1))
     return(as.list.environment(locals30))
   })
-}
